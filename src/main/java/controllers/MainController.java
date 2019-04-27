@@ -51,7 +51,7 @@ public class MainController {
      * @throws Exception
      */
     private Node getNewTabContent() throws Exception {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/views/tab_content.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../../resources/views/tab_content_start_page.fxml"));
 
         if (fxmlLoader.getLocation() == null) {
             throw new Exception("Error to load main menu content!\n");
