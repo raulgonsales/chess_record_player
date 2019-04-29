@@ -1,0 +1,30 @@
+.tab-content {
+    -fx-pref-width: 1000.0;
+    -fx-pref-height: 950.0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+    -fx-background-image: url("../images/chess_background.jpg");
+}
+
+#replay_new_game, #end_game {
+    -fx-pref-width: 450px;
+    -fx-pref-height: 60px;
+    -fx-cursor: hand;
+    -fx-background-image: url("../images/tabs_background.jpg");
+    -fx-font-size: 20px;
+    -fx-opacity: 0.6;
+}
+
+#replay_new_game:hover, #end_game:hover {
+    -fx-opacity: 1;
+}
+
+#replay_new_game {
+    -fx-translate-x: 275.0;
+    -fx-translate-y: 345.0;
+}
+
+#end_game {
+    -fx-translate-x: 275.0;
+    -fx-translate-y: 439.0;
+}

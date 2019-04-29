@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<project name="Chess replay application" default="run" basedir="." xmlns:fx="javafx:com.sun.javafx.tools.ant">
+    <property name="src" value="${basedir}/src"/>
+    <property name="build" value="${basedir}/build"/>
+    <property name="doc" value="${basedir}/doc"/>
+    <property name="data" value="${basedir}/data"/> <!--Written chess annotation which can be loaded by application-->
+    <property name="dest" value="${basedir}/dest"/> <!--Result jar app directory-->
+    <property name="jarAppName" value="${dest}/ija-app.jar"/>
+    <property name="manifest" value="${src}/MANIFEST.MF"/>
+
+    <!--Cleaning-->
+    <target name="clean" description="Clearing application folders">
+        <delete dir="${build}"/>
+        <delete dir="${doc}"/>
+        <delete dir="${dest}"/>
+    </target>
+
+    <!--Creating directories-->
+    <target name="init" depends="clean" description="Creating application directories">
+        <mkdir dir="${build}"/>
+        <mkdir dir="${doc}"/>
+        <mkdir dir="${dest}"/>
+    </target>
+
+    <!--Compilation-->
+    <target name="compile" depends="init" description="Building an application">
+        <mkdir dir="${build}/src" />
+
+        <copy todir="${build}">
+            <fileset dir="${build}/src">
+                <exclude name="application/**" />
+            </fileset>
+        </copy>
+
+        <javac srcdir="${src}"
+               destdir="${build}"
+               debug="false"
+               deprecation="true"
+               optimize="true"
+               includeantruntime="false">
+        </javac>
+
+        <copy todir="${build}/main/resources">
+            <fileset dir="${src}/main/resources">
+                <include name="**/*" />
+            </fileset>
+        </copy>
+
+        <antcall target="doc" />
+        <antcall target="generate.jar" />
+    </target>
+
+    <!--Generating documentation-->
+    <target name="doc" description="Generating documentation">
+        <echo message="Generating documentation into folder ${doc}"/>
+        <javadoc encoding="UTF-8"
+                 charset="UTF-8"
+                 docencoding="UTF-8"
+                 sourcepath="${src}"
+                 destdir="${doc}" />
+    </target>
+
+    <!--Make jar file-->
+    <target name="generate.jar">
+        <taskdef resource="com/sun/javafx/tools/ant/antlib.xml"
+                 uri="javafx:com.sun.javafx.tools.ant"
+                 classpath="${basedir}/lib/ant-javafx.jar"/>
+
+        <fx:application id="fxApplication"
+                        name="SchemeEditor"
+                        version="1.0"
+                        mainclass="main.Main"/>
+
+        <fx:jar destfile="${jarAppName}">
+            <fx:application refid="fxApplication"/>
+            <fileset dir="${build}" />
+            <fileset dir="${dest}" includes="${jarAppName}"/>
+
+            <manifest>
+                <attribute name="Implementation-Title" value="Chess replay application"/>
+                <attribute name="Implementation-Version" value="1.0"/>
+            </manifest>
+        </fx:jar>
+    </target>
+
+    <!--Running an application-->
+    <target name="run" description="Running an application">
+        <java jar="${jarAppName}" fork="true" />
+    </target>
+
+    <!--Make all targets (clean, init, compile, generating doc, making jar, running)-->
+    <target name="all">
+        <antcall target="compile" />
+        <antcall target="run" />
+    </target>
+</project>
