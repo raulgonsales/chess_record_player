@@ -27,12 +27,6 @@
     <target name="compile" depends="init" description="Building an application">
         <mkdir dir="${build}/src" />
 
-        <copy todir="${build}">
-            <fileset dir="${build}/src">
-                <exclude name="application/**" />
-            </fileset>
-        </copy>
-
         <javac srcdir="${src}"
                destdir="${build}"
                debug="false"
