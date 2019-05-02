@@ -20,7 +20,7 @@ public class MainController {
 
     public void initialize() throws Exception
     {
-        this.firstTab.setContent(getNewTabContent());
+        this.firstTab.setContent(getNewTabContent(firstTab));
 
         final Tooltip newTabTooltip = new Tooltip("Create new Game");
         this.addNewTab.setTooltip(newTabTooltip);
@@ -36,8 +36,8 @@ public class MainController {
         if (this.addNewTab.isSelected()) {
             int tabCount = this.tabs.getTabs().size();
 
-            Tab newTab = new Tab("Chess");
-            newTab.setContent(getNewTabContent());
+            Tab newTab = new Tab("Chess " + tabCount);
+            newTab.setContent(getNewTabContent(newTab));
 
             this.tabs.getTabs().add(tabCount - 1, newTab);
             this.tabs.getSelectionModel().select(newTab);
@@ -50,13 +50,26 @@ public class MainController {
      * @return
      * @throws Exception
      */
-    private Node getNewTabContent() throws Exception {
+    private Node getNewTabContent(Tab tab) throws Exception {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/views/tab_content_start_page.fxml"));
+        fxmlLoader.setController(new StartPageController(this, tab));
 
         if (fxmlLoader.getLocation() == null) {
             throw new Exception("Error to load main menu content!\n");
         }
 
         return fxmlLoader.load();
+    }
+
+    /**
+     * Close tab
+     *
+     * @param tab Tab to be closed
+     */
+    public void closeTab(Tab tab) {
+        this.tabs.getTabs()
+                .stream()
+                .filter(tab::equals)
+                .findAny().ifPresent(foundTab -> this.tabs.getTabs().remove(foundTab));
     }
 }

@@ -4,12 +4,10 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane styleClass="tab-content" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.java.controllers.StartPageController">
+<AnchorPane styleClass="tab-content" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@../style/tab_content_start_page.css" />
+        <URL value="@../style/tab_content_start_page.css"/>
     </stylesheets>
-   <children>
-      <Button fx:id="replay_new_game" text="Replay new game"/>
-      <Button fx:id="end_game" text="End game" />
-   </children>
+    <Button fx:id="replay_new_game" text="Replay new game"/>
+    <Button fx:id="end_game" onAction="#endGame" text="End game"/>
 </AnchorPane>
