@@ -1,0 +1,10 @@
+#game_panel {
+    -fx-pref-width: 1000.0;
+    -fx-pref-height: 950.0;
+    -fx-min-width: 0;
+    -fx-min-height: 0;
+}
+#game_board {
+    -fx-background-color: red;
+}
+
