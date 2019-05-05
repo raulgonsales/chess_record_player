@@ -8,6 +8,6 @@
     <stylesheets>
         <URL value="@../style/tab_content_start_page.css"/>
     </stylesheets>
-    <Button fx:id="replay_new_game" text="Replay new game"/>
+    <Button fx:id="replay_new_game" onAction="#startGame" text="Replay new game"/>
     <Button fx:id="end_game" onAction="#endGame" text="End game"/>
 </AnchorPane>
