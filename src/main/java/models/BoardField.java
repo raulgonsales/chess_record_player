@@ -1,5 +1,6 @@
 package main.java.models;
 
+import javafx.scene.Node;
 import javafx.scene.layout.*;
 import main.java.models.interfaces.Field;
 import main.java.models.interfaces.Figure;
@@ -38,18 +39,25 @@ public class BoardField extends StackPane implements Field{
     @Override
     public boolean put(Figure figure) {
         figure.setMyField(this);
+        this.getChildren().add((Node) figure);
         this.figure = figure;
         return true;
     }
 
     @Override
-    public boolean remove(Figure figure) {
-        if(this.figure == null || !figure.equals(this.figure)) {
+    public boolean remove() {
+        this.getChildren().removeAll((Node) figure);
+        if(this.figure == null) {
             return false;
         } else {
             this.figure = null;
             return true;
         }
+    }
+
+    @Override
+    public Figure get() {
+        return this.isEmpty() ? null : this.figure;
     }
 
     @Override

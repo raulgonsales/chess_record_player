@@ -2,6 +2,7 @@ package main.java.game;
 
 import main.java.models.Board;
 import main.java.models.figures.*;
+import main.java.models.interfaces.Figure;
 
 public class Chess implements Game {
     private Board board;

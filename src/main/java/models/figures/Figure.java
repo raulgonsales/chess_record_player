@@ -1,15 +1,21 @@
 package main.java.models.figures;
 
+import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
 
-public class Figure implements main.java.models.interfaces.Figure {
+public class Figure extends Pane implements main.java.models.interfaces.Figure {
     private boolean isWhite;
     private BoardField myField;
-    protected String figureName;
+    protected String figureName = "";
 
     public Figure(boolean isWhite) {
         this.isWhite = isWhite;
+        setMaxWidth(55);
+        setMaxHeight(55);
+
+        getStylesheets().addAll(this.getClass().getResource("../../../resources/style/figures.css").toExternalForm());
     }
 
     @Override
@@ -47,5 +53,9 @@ public class Figure implements main.java.models.interfaces.Figure {
 
         Figure comparedObj = (Figure) obj;
         return this.isWhite() == comparedObj.isWhite();
+    }
+
+    protected void setFigureId() {
+        this.setId(this.figureName + "_" + (this.isWhite ? "white" : "black"));
     }
 }

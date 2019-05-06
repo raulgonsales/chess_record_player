@@ -1,0 +1,36 @@
+#P_white {
+    -fx-background-image: url("../images/figures/pawn_white.png");
+}
+#P_black {
+    -fx-background-image: url("../images/figures/pawn_black.png");
+}
+#S_white {
+    -fx-background-image: url("../images/figures/bishop_white.png");
+}
+#S_black {
+    -fx-background-image: url("../images/figures/bishop_black.png");
+}
+#V_white {
+    -fx-background-image: url("../images/figures/rook_white.png");
+}
+#V_black {
+    -fx-background-image: url("../images/figures/rook_black.png");
+}
+#J_white {
+    -fx-background-image: url("../images/figures/knight_white.png");
+}
+#J_black {
+    -fx-background-image: url("../images/figures/knight_black.png");
+}
+#K_white {
+    -fx-background-image: url("../images/figures/king_white.png");
+}
+#K_black {
+    -fx-background-image: url("../images/figures/king_black.png");
+}
+#D_white {
+    -fx-background-image: url("../images/figures/king_white.png");
+}
+#D_black {
+    -fx-background-image: url("../images/figures/king_black.png");
+}

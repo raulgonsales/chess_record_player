@@ -5,5 +5,6 @@ public interface Field {
     int getRow();
     boolean isEmpty();
     boolean put(Figure figure);
-    boolean remove(Figure figure);
+    boolean remove();
+    Figure get();
 }
