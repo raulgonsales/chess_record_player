@@ -1,38 +1,69 @@
 package main.java.models;
 
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Text;
 
 public class Board extends StackPane {
     private BoardField[][] fields;
     private int boardSize;
 
+    enum EdgesLabels {
+        a(1),
+        b(2),
+        c(3),
+        d(4),
+        e(5),
+        f(6),
+        g(7),
+        h(8);
+
+        int dir_env_index;
+
+        EdgesLabels(int i) {
+            this.dir_env_index = i;
+        }
+    }
+
     public Board(int boardSize) {
-        Rectangle border = new Rectangle(600, 600);
-        border.setFill(null);
-        border.setStroke(Color.BLACK);
-        border.setStrokeWidth(5);
-        setAlignment(Pos.CENTER);
-        getChildren().addAll(border);
+        this.boardSize = boardSize + 2;
 
-        this.boardSize = boardSize;
-
-        this.fields = new BoardField[this.boardSize + 2][this.boardSize + 2];
+        this.fields = new BoardField[this.boardSize][this.boardSize];
 
         initBoardFields();
     }
 
     private void initBoardFields() {
-        for (int i = 0; i < this.boardSize + 2; i++) {
-            for (int j = 0; j < this.boardSize + 2; j++) {
+        for (int i = 0; i < this.boardSize; i++) {
+            for (int j = 0; j < this.boardSize; j++) {
                 BoardField field = new BoardField(i, j);
-                this.fields[i][j] = field;
-                field.setAlignment(Pos.BOTTOM_LEFT);
-                field.setTranslateX(i*60);
-                field.setTranslateY(-j*60);
 
+                if(i == 0 || j == 0 || i == (this.boardSize - 1) || j == (this.boardSize - 1)) {
+                    field = new BoardFieldEdge(i, j);
+                    if (j == 0 && (i >= 1 && i <= 8)) {
+                        ((BoardFieldEdge) field).setEdgeText(new Text(EdgesLabels.values()[i - 1].toString()));
+                    }
+
+                    if (i == 0 && (j >= 1 && j <= 8)) {
+                        ((BoardFieldEdge) field).setEdgeText(new Text(String.valueOf(j)));
+                    }
+
+                }
+                setAlignment(field, Pos.BOTTOM_LEFT);
+                field.setTranslateX(i*70);
+                field.setTranslateY(-j*70);
+
+                if((j % 2 != 0 && i % 2 != 0) || (j % 2 == 0 && i % 2 == 0) && (i != 0 & j != 0)) {
+                    field.setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
+
+                this.fields[i][j] = field;
+
+                if(j == 9 || i == 9) {
+                    continue;
+                }
                 this.getChildren().add(field);
             }
         }

@@ -3,11 +3,12 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="main.java.controllers.GamePanelController"
-            fx:id="game_panel">
+<?import main.java.models.Board?>
+<StackPane xmlns="http://javafx.com/javafx"
+           xmlns:fx="http://javafx.com/fxml"
+           fx:controller="main.java.controllers.GamePanelController"
+           fx:id="game_panel">
     <stylesheets>
         <URL value="@../style/game_panel.css"/>
     </stylesheets>
-</AnchorPane>
+</StackPane>
