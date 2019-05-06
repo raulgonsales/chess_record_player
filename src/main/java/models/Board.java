@@ -5,6 +5,7 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import main.java.models.interfaces.Field;
 
 public class Board extends StackPane {
     private BoardField[][] fields;
@@ -67,5 +68,13 @@ public class Board extends StackPane {
                 this.getChildren().add(field);
             }
         }
+    }
+
+    public int getBoardSize() {
+        return boardSize;
+    }
+
+    public BoardField getField(int col, int row) {
+        return this.fields[col][row];
     }
 }
