@@ -1,8 +1,14 @@
 package main.java.models;
 
+import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.input.DragEvent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import main.java.models.interfaces.Field;
 import main.java.models.interfaces.Figure;
 
@@ -19,6 +25,37 @@ public class BoardField extends StackPane implements Field{
         this.envFields = new BoardField[8];
         setMaxWidth(70);
         setMaxHeight(70);
+
+        setOnDragOver(event -> {
+            /* accept it only if it is  not dragged from the same node
+             * and if it has a string data */
+            if (event.getGestureSource() != BoardField.this &&
+                    event.getDragboard().hasString()) {
+                /* allow for both copying and moving, whatever user chooses */
+                event.acceptTransferModes(TransferMode.MOVE);
+            }
+
+            event.consume();
+        });
+
+        setOnDragDropped(event -> {
+            /* data dropped */
+            /* if there is a string data on dragboard, read it and use it */
+            Dragboard db = event.getDragboard();
+
+            boolean success = false;
+            if (db.hasString()) {
+                int col1 = Integer.parseInt(String.valueOf(db.getString().charAt(0)));
+                int row1 = Integer.parseInt(String.valueOf(db.getString().charAt(1)));
+                board.getField(col1, row1).get().move(BoardField.this);
+                success = true;
+            }
+            /* let the source know whether the string was successfully
+             * transferred and used */
+            event.setDropCompleted(success);
+
+            event.consume();
+        });
     }
 
     public void setBoard(Board board) {

@@ -1,5 +1,6 @@
 package main.java.models.interfaces;
 
+import javafx.scene.input.TransferMode;
 import main.java.models.BoardField;
 
 public interface Figure {
