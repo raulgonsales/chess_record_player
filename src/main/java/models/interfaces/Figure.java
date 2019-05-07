@@ -7,4 +7,6 @@ public interface Figure {
     void setMyField(BoardField field);
     Field getMyField();
     String getState();
+
+    boolean move(BoardField boardField);
 }

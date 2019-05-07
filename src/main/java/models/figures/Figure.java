@@ -6,7 +6,7 @@ import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
 
 public class Figure extends Pane implements main.java.models.interfaces.Figure {
-    private boolean isWhite;
+    protected boolean isWhite;
     protected BoardField myField;
     protected String figureName = "";
 
@@ -32,8 +32,13 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         });
     }
 
-    public void makePawnWayHighlighting() {
-        this.myField.nextField(this.isWhite() ? Field.Direction.U : Field.Direction.D).positiveHighlightField();
+    private void makePawnWayHighlighting() {
+        this.myField.nextField(this.isWhite ? Field.Direction.U : Field.Direction.D).positiveHighlightField();
+    }
+
+    @Override
+    public boolean move(BoardField boardField) {
+        return false;
     }
 
     @Override
@@ -54,7 +59,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     @Override
     public String getState() {
         return this.figureName + "[" +
-                (isWhite ? "W" : "B") + "]" +
+                (this.isWhite ? "W" : "B") + "]" +
                 this.getMyField().getCol() +
                 ":" + this.getMyField().getRow();
     }
