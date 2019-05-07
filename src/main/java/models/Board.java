@@ -55,6 +55,7 @@ public class Board extends StackPane {
                 setAlignment(field, Pos.BOTTOM_LEFT);
                 field.setTranslateX(i*70);
                 field.setTranslateY(-j*70);
+                field.setBoard(this);
 
                 if((j % 2 != 0 && i % 2 != 0) || (j % 2 == 0 && i % 2 == 0) && (i != 0 & j != 0)) {
                     field.setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
@@ -68,6 +69,23 @@ public class Board extends StackPane {
                 this.getChildren().add(field);
             }
         }
+
+        for (int i = 1; i < this.boardSize - 1; i++) {
+            for (int j = 1; j < this.boardSize - 1; j++) {
+                this.fields[i][j].addNextField(Field.Direction.LD, this.fields[i - 1][j - 1]);
+                this.fields[i][j].addNextField(Field.Direction.L, this.fields[i - 1][j]);
+                this.fields[i][j].addNextField(Field.Direction.LU, this.fields[i - 1][j + 1]);
+                this.fields[i][j].addNextField(Field.Direction.U, this.fields[i][j + 1]);
+                this.fields[i][j].addNextField(Field.Direction.RU, this.fields[i + 1][j + 1]);
+                this.fields[i][j].addNextField(Field.Direction.R, this.fields[i + 1][j]);
+                this.fields[i][j].addNextField(Field.Direction.RD, this.fields[i + 1][j - 1]);
+                this.fields[i][j].addNextField(Field.Direction.D, this.fields[i][j - 1]);
+            }
+        }
+    }
+
+    public BoardField[][] getFields() {
+        return fields;
     }
 
     public int getBoardSize() {

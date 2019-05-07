@@ -29,8 +29,8 @@
     -fx-background-image: url("../images/figures/king_black.png");
 }
 #D_white {
-    -fx-background-image: url("../images/figures/king_white.png");
+    -fx-background-image: url("../images/figures/queen_white.png");
 }
 #D_black {
-    -fx-background-image: url("../images/figures/king_black.png");
+    -fx-background-image: url("../images/figures/queen_black.png");
 }

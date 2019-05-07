@@ -2,6 +2,7 @@ package main.java.models;
 
 import javafx.scene.Node;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import main.java.models.interfaces.Field;
 import main.java.models.interfaces.Figure;
 
@@ -9,18 +10,33 @@ public class BoardField extends StackPane implements Field{
     private int col;
     private int row;
     private Figure figure = null;
+    private Board board;
+    private Field[] envFields;
 
     BoardField(int col, int row) {
         this.col = col;
         this.row = row;
+        this.envFields = new BoardField[8];
         setMaxWidth(70);
         setMaxHeight(70);
+    }
 
-        this.setOnMouseClicked(event -> {
-            System.out.println(this.col);
-            System.out.println(this.row);
-            System.out.println(this);
-        });
+    public void setBoard(Board board) {
+        this.board = board;
+    }
+
+    public Board getBoard() {
+        return board;
+    }
+
+    @Override
+    public void addNextField(Direction dirs, Field field) {
+        this.envFields[dirs.getValue()] = field;
+    }
+
+    @Override
+    public Field nextField(Direction dirs) {
+        return this.envFields[dirs.getValue()];
     }
 
     public int getCol() {
@@ -29,6 +45,11 @@ public class BoardField extends StackPane implements Field{
 
     public int getRow() {
         return row;
+    }
+
+    public void positiveHighlightField() {
+        this.setBorder(new Border(new BorderStroke(Color.GREEN,
+                BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(3))));
     }
 
     @Override
