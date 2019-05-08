@@ -1,3 +1,5 @@
+package main.java.parser;
+
 import java.util.Objects;
 
 public class Move {
@@ -7,11 +9,11 @@ public class Move {
     private int to_row;
     private int to_col;
 
-    String stone;
-    boolean defend;
-    boolean check;
-    boolean check_mat;
-    String swap_stone;
+    private String stone;
+    private boolean defend;
+    private boolean check;
+    private boolean check_mat;
+    private String swap_stone;
 
     public Move(Move other) {
         this.from_row = other.from_row;

@@ -1,17 +1,28 @@
+package main.java.parser;
+
 import java.io.BufferedReader;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+/*
+ *
+ * err_code:
+ *           0-OK
+ *           1-file not exist on you dont permissions to read file
+ *           2-you dont have permission to write file
+ *           3-y
+ * */
 
 public class Parser {
 
     private String path;
     private ArrayList<String> data;
+    private int err_code;
 
-    Parser(String path) {
+    public Parser(String path) {
         this.path = path;
         data = new ArrayList<>();
+        err_code = 0;
     }
 
     private boolean load_data() {
@@ -26,13 +37,18 @@ public class Parser {
             reader.close();
 
         } catch (IOException e) {
+            this.err_code = 1;
             return false;
         }
 
         return true;
     }
 
-    ArrayList<Round> convert() {
+    public int getErr_code() {
+        return err_code;
+    }
+
+    public ArrayList<Round> convert() {
         if (!load_data()) {
             return null;
         }
