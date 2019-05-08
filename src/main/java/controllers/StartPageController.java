@@ -68,6 +68,10 @@ public class StartPageController {
         alert.setHeaderText(null);
         if (err == 1) {
             alert.setContentText("File does not exist or you don't have permissions to read file");
+        } else if (err == 3) {
+            alert.setContentText("Syntax error of file");
+        } else {
+            alert.setContentText("Unknown ERROR");
         }
 
 

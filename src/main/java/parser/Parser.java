@@ -10,7 +10,7 @@ import java.util.ArrayList;
  *           0-OK
  *           1-file not exist on you dont permissions to read file
  *           2-you dont have permission to write file
- *           3-y
+ *           3-Syntax error of file
  * */
 
 public class Parser {
@@ -61,6 +61,7 @@ public class Parser {
                 line = this.data.get(i);
                 int t = Integer.parseInt(line.replaceAll(patern, "$1"));
                 if (Integer.parseInt(line.replaceAll(patern, "$1")) != (i + 1)) {
+                    this.err_code = 3;
                     return null;
                 }
                 s_wh = line.replaceAll(patern, "$2");
@@ -83,6 +84,7 @@ public class Parser {
             }
             return list;
         } catch (Exception e) {
+            this.err_code = 3;
             return null;
         }
 
