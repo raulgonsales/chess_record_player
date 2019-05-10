@@ -38,20 +38,7 @@ public class Bishop extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
-        if (moveTo.equals(this.myField)) {
-            return false;
-        }
-
-        if (moveTo.getRow() > moveTo.getBoard().getBoardSize() || moveTo.getCol() > moveTo.getBoard().getBoardSize() ||
-                moveTo.getRow() < 1 || moveTo.getCol() < 1) {
-            return false;
-        }
-
-        if ((!moveTo.isEmpty()) && (moveTo.get().isWhite() == this.myField.get().isWhite()
-        )) {
-
-            return false;
-        }
+        if (check_field_and_edge(moveTo)) return false;
 
         if ((Math.abs(this.myField.getCol() - this.myField.getRow()) != Math.abs(moveTo.getCol() - moveTo.getRow())) && (this.myField.getCol() + this.myField.getRow() != Math.abs(moveTo.getCol() + moveTo.getRow()))) {
             return false;

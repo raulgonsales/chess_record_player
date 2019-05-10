@@ -96,4 +96,22 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         }
         return false;
     }
+
+    protected boolean check_field_and_edge(BoardField moveTo) {
+        if (moveTo.equals(this.myField)) {
+            return true;
+        }
+
+        if (moveTo.getRow() > moveTo.getBoard().getBoardSize() || moveTo.getCol() > moveTo.getBoard().getBoardSize() ||
+                moveTo.getRow() < 1 || moveTo.getCol() < 1) {
+            return true;
+        }
+
+        if ((!moveTo.isEmpty()) && (moveTo.get().isWhite() == this.myField.get().isWhite()
+        )) {
+
+            return true;
+        }
+        return false;
+    }
 }

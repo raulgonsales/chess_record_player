@@ -37,20 +37,7 @@ public class Rook extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
-        if (moveTo.equals(this.myField)) {
-            return false;
-        }
-
-        if (moveTo.getRow() > moveTo.getBoard().getBoardSize() || moveTo.getCol() > moveTo.getBoard().getBoardSize() ||
-                moveTo.getRow() < 1 || moveTo.getCol() < 1) {
-            return false;
-        }
-
-        if ((!moveTo.isEmpty()) && (moveTo.get().isWhite() == this.myField.get().isWhite()
-        )) {
-
-            return false;
-        }
+        if (check_field_and_edge(moveTo)) return false;
 
 
         if (this.myField.getCol() == moveTo.getCol()) {
@@ -73,4 +60,6 @@ public class Rook extends Figure {
         moveTo.put(this);
         return true;
     }
+
+
 }

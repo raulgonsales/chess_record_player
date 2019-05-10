@@ -39,18 +39,7 @@ public class Pawn extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
-        if (moveTo.equals(this.myField)) {
-            return false;
-        }
-
-        if (moveTo.getRow() > moveTo.getBoard().getBoardSize() || moveTo.getCol() > moveTo.getBoard().getBoardSize() ||
-                moveTo.getRow() < 1 || moveTo.getCol() < 1) {
-            return false;
-        }
-
-        if (moveTo.getCol() != this.myField.getCol()) {
-            return false;
-        }
+        if (check_field_and_edge(moveTo)) return false;
 
         if (this.isWhite && moveTo.getRow() < this.myField.getRow() ||
                 !this.isWhite && moveTo.getRow() > this.myField.getRow() ||
