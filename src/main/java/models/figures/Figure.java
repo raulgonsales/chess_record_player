@@ -19,8 +19,8 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
 
         this.setOnMouseClicked(event -> {
             Board board = this.myField.getBoard();
-            for(int i = 1; i < board.getBoardSize() - 1; i++) {
-                for(int j = 1; j < board.getBoardSize() - 1; j++) {
+            for (int i = 1; i < board.getBoardSize() - 1; i++) {
+                for (int j = 1; j < board.getBoardSize() - 1; j++) {
                     board.getFields()[i][j].setBorder(Border.EMPTY);
                 }
             }
@@ -29,6 +29,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
             if (this instanceof Pawn) {
                 this.makePawnWayHighlighting();
             }
+
         });
     }
 
@@ -80,5 +81,19 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
 
     protected void setFigureId() {
         this.setId(this.figureName + "_" + (this.isWhite ? "white" : "black"));
+    }
+
+    boolean check_way(BoardField moveTo, Field.Direction dir) {
+        Field tmp;
+        tmp = this.myField;
+        tmp = tmp.nextField(dir);
+        while (!tmp.equals(moveTo)) {
+
+            if (!tmp.isEmpty()) {
+                return true;
+            }
+            tmp = tmp.nextField(dir);
+        }
+        return false;
     }
 }
