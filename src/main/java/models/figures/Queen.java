@@ -1,7 +1,5 @@
 package main.java.models.figures;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.*;
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
 

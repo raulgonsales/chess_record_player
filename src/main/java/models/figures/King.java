@@ -1,9 +1,6 @@
 package main.java.models.figures;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.*;
 import main.java.models.BoardField;
-import main.java.models.interfaces.Field;
 
 public class King extends Figure {
     public King(boolean isWhite) {

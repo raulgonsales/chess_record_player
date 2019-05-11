@@ -1,6 +1,5 @@
 package main.java.models.figures;
 
-import javafx.scene.input.*;
 import main.java.models.BoardField;
 
 public class Pawn extends Figure {
@@ -12,7 +11,7 @@ public class Pawn extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
-        if (check_field_and_edge(moveTo)) return false;
+        if (check_field_and_edge(moveTo) || this.myField.getCol() != moveTo.getCol()) return false;
 
         if (this.isWhite && moveTo.getRow() < this.myField.getRow() ||
                 !this.isWhite && moveTo.getRow() > this.myField.getRow() ||
