@@ -14,7 +14,6 @@ public class Rook extends Figure {
     public boolean move(BoardField moveTo) {
         if (check_field_and_edge(moveTo)) return false;
 
-
         if (this.myField.getCol() == moveTo.getCol()) {
             if (this.myField.getRow() > moveTo.getRow()) {
                 if (check_way(moveTo, Field.Direction.D)) return false;
@@ -35,6 +34,4 @@ public class Rook extends Figure {
         moveTo.put(this);
         return true;
     }
-
-
 }

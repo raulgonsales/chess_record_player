@@ -28,7 +28,5 @@ public class GamePanelController {
         StackPane.setAlignment(board, Pos.TOP_CENTER);
 
         this.game = GameFactory.crateChessGame(board);
-
-        System.out.println(this.startPageController.getList_round());
     }
 }

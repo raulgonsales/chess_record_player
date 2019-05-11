@@ -3,7 +3,6 @@
 <?import javafx.scene.layout.*?>
 
 <?import java.net.URL?>
-<?import main.java.models.Board?>
 <StackPane xmlns="http://javafx.com/javafx"
            xmlns:fx="http://javafx.com/fxml"
            fx:id="game_panel">
