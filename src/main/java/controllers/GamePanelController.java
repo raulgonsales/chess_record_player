@@ -1,8 +1,11 @@
 package main.java.controllers;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.text.Text;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
@@ -17,6 +20,8 @@ public class GamePanelController {
     private ArrayList<Round> list_round;
 
     private StartPageController startPageController;
+
+    private VBox annotationContainer;
 
     GamePanelController(StartPageController startPageController) {
         this.startPageController = startPageController;
@@ -38,7 +43,48 @@ public class GamePanelController {
         this.game = GameFactory.crateChessGame(board);
         this.list_round = this.startPageController.getList_round();
 
-
+        this.createAnnotationPanel();
+        this.setInitialAnnotation();
     }
 
+    /**
+     * Sets annotation to annotation panel from initial file with all saved annotations
+     */
+    public void setInitialAnnotation() {
+        for (int i = 0; i <= 10; i++) {
+            this.annotationContainer.getChildren().add(this.createMoveAnnotation("Example "+i));
+        }
+    }
+
+    /**
+     * Creates one text annotation for particular movement
+     *
+     * @param moveText
+     * @return
+     */
+    public Text createMoveAnnotation(String moveText) {
+        Text annotation = new Text(moveText);
+        annotation.setOnMouseClicked(event -> System.out.println(annotation.getText()));
+        return annotation;
+    }
+
+    /**
+     * Creates panel for every movement annotation
+     */
+    public void createAnnotationPanel() {
+        ScrollPane annotationPane = new ScrollPane();
+        annotationPane.setMaxHeight(200);
+        annotationPane.setMaxWidth(800);
+        annotationPane.setTranslateY(300);
+        StackPane.setAlignment(annotationPane, Pos.CENTER);
+        this.game_panel.getChildren().add(annotationPane);
+
+        VBox root = new VBox();
+        root.setSpacing(10);
+        root.setPadding(new Insets(10));
+
+        annotationPane.setContent(root);
+
+        this.annotationContainer = root;
+    }
 }
