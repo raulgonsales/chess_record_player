@@ -1,7 +1,5 @@
 package main.java.models.figures;
 
-import javafx.event.EventHandler;
-import javafx.scene.input.*;
 import main.java.models.BoardField;
 
 public class Knight extends Figure {
@@ -9,29 +7,6 @@ public class Knight extends Figure {
         super(isWhite);
         this.figureName = "J";
         this.setFigureId();
-
-        setOnDragDetected(new EventHandler<MouseEvent>() {
-            public void handle(MouseEvent event) {
-                /* allow any transfer mode */
-                Dragboard db = startDragAndDrop(TransferMode.MOVE);
-
-                /* put a string on dragboard */
-                ClipboardContent content = new ClipboardContent();
-                content.putString("" + myField.getCol() + myField.getRow());
-                db.setContent(content);
-
-                event.consume();
-            }
-        });
-
-        setOnDragDone(new EventHandler<DragEvent>() {
-            public void handle(DragEvent event) {
-                /* if the data was successfully moved, clear it */
-                if (event.getTransferMode() == TransferMode.MOVE) {
-                }
-                event.consume();
-            }
-        });
     }
 
 

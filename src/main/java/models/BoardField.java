@@ -1,14 +1,10 @@
 package main.java.models;
 
-import javafx.event.EventHandler;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.input.DragEvent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.text.Text;
 import main.java.models.interfaces.Field;
 import main.java.models.interfaces.Figure;
 
@@ -44,6 +40,7 @@ public class BoardField extends StackPane implements Field{
             Dragboard db = event.getDragboard();
 
             boolean success = false;
+
             if (db.hasString()) {
                 int col1 = Integer.parseInt(String.valueOf(db.getString().charAt(0)));
                 int row1 = Integer.parseInt(String.valueOf(db.getString().charAt(1)));

@@ -1,8 +1,12 @@
 package main.java.models.figures;
 
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import main.java.models.Board;
 import main.java.models.BoardField;
+import main.java.models.BoardFieldEdge;
 import main.java.models.interfaces.Field;
 
 public class Figure extends Pane implements main.java.models.interfaces.Figure {
@@ -30,6 +34,18 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 this.makePawnWayHighlighting();
             }
 
+        });
+
+        setOnDragDetected(event -> {
+            /* allow any transfer mode */
+            Dragboard db = startDragAndDrop(TransferMode.MOVE);
+
+            /* put a string on dragboard */
+            ClipboardContent content = new ClipboardContent();
+            content.putString("" + myField.getCol() + myField.getRow());
+            db.setContent(content);
+
+            event.consume();
         });
     }
 
@@ -98,20 +114,8 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     }
 
     protected boolean check_field_and_edge(BoardField moveTo) {
-        if (moveTo.equals(this.myField)) {
-            return true;
-        }
-
-        if (moveTo.getRow() > moveTo.getBoard().getBoardSize() || moveTo.getCol() > moveTo.getBoard().getBoardSize() ||
-                moveTo.getRow() < 1 || moveTo.getCol() < 1) {
-            return true;
-        }
-
-        if ((!moveTo.isEmpty()) && (moveTo.get().isWhite() == this.myField.get().isWhite()
-        )) {
-
-            return true;
-        }
-        return false;
+        return moveTo.equals(this.myField)
+                || (moveTo instanceof BoardFieldEdge)
+                || !moveTo.isEmpty() && this.equals(moveTo.get());
     }
 }
