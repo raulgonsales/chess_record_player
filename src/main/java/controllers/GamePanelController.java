@@ -6,8 +6,16 @@ import javafx.scene.layout.*;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
+import main.java.controllers.StartPageController;
+import main.java.parser.Round;
+
+import java.util.ArrayList;
+
 
 public class GamePanelController {
+
+    private ArrayList<Round> list_round;
+
     private StartPageController startPageController;
 
     GamePanelController(StartPageController startPageController) {
@@ -28,5 +36,9 @@ public class GamePanelController {
         StackPane.setAlignment(board, Pos.TOP_CENTER);
 
         this.game = GameFactory.crateChessGame(board);
+        this.list_round = this.startPageController.getList_round();
+
+
     }
+
 }
