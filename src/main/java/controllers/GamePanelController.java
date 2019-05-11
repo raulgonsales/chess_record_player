@@ -8,6 +8,12 @@ import main.java.game.GameFactory;
 import main.java.models.Board;
 
 public class GamePanelController {
+    private StartPageController startPageController;
+
+    GamePanelController(StartPageController startPageController) {
+        this.startPageController = startPageController;
+    }
+
     @FXML
     public StackPane game_panel;
 

@@ -43,7 +43,6 @@ public class StartPageController {
     }
 
     public void startGame() throws IOException {
-
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(null);
@@ -53,13 +52,11 @@ public class StartPageController {
 
         if (this.list_round != null) {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/main/resources/views/game_panel.fxml"));
+            fxmlLoader.setController(new GamePanelController(this));
             this.thisTab.setContent(fxmlLoader.load());
         } else {
             error(parser.getErr_code());
-
         }
-
-
     }
 
     private void error(int err) {
@@ -74,8 +71,10 @@ public class StartPageController {
             alert.setContentText("Unknown ERROR");
         }
 
-
         alert.showAndWait();
     }
 
+    public ArrayList<Round> getList_round() {
+        return list_round;
+    }
 }
