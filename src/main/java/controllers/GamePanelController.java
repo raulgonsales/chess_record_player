@@ -8,16 +8,16 @@ import main.java.game.GameFactory;
 import main.java.models.Board;
 
 public class GamePanelController {
+    @FXML
+    private StackPane game_panel;
+
     private StartPageController startPageController;
+
+    private Game game;
 
     GamePanelController(StartPageController startPageController) {
         this.startPageController = startPageController;
     }
-
-    @FXML
-    public StackPane game_panel;
-
-    private Game game;
 
     public void initialize() {
         Board board = new Board(8);
@@ -28,5 +28,7 @@ public class GamePanelController {
         StackPane.setAlignment(board, Pos.TOP_CENTER);
 
         this.game = GameFactory.crateChessGame(board);
+
+        System.out.println(this.startPageController.getList_round());
     }
 }

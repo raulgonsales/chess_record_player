@@ -1,5 +1,8 @@
 package main.java.models.figures;
 
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
 import main.java.models.Board;
 import main.java.models.BoardField;
@@ -30,6 +33,18 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 this.makePawnWayHighlighting();
             }
 
+        });
+
+        setOnDragDetected(event -> {
+            /* allow any transfer mode */
+            Dragboard db = startDragAndDrop(TransferMode.MOVE);
+
+            /* put a string on dragboard */
+            ClipboardContent content = new ClipboardContent();
+            content.putString("" + myField.getCol() + myField.getRow());
+            db.setContent(content);
+
+            event.consume();
         });
     }
 

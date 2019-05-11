@@ -32,16 +32,25 @@ public class StartPageController {
 
     private MainController mainController;
 
-
     StartPageController(MainController mainController, Tab thisTab) {
         this.mainController = mainController;
         this.thisTab = thisTab;
     }
 
+    /**
+     * Handle click to the button End Page and closes tab with that game
+     *
+     * @param event
+     */
     public void endGame(ActionEvent event) {
         this.mainController.closeTab(this.thisTab);
     }
 
+    /**
+     * Handle click to the button Start Page
+     *
+     * @throws IOException
+     */
     public void startGame() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Open Resource File");
