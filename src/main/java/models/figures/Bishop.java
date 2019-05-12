@@ -12,6 +12,22 @@ public class Bishop extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
+        if (!check_move(moveTo)) {
+            return false;
+        }
+
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
+
+        this.myField.remove();
+        moveTo.put(this);
+        this.cancel_highlighting();
+        return true;
+    }
+
+    @Override
+    public boolean check_move(BoardField moveTo) {
         if (check_field_and_edge(moveTo)) return false;
 
         if ((Math.abs(this.myField.getCol() - this.myField.getRow()) != Math.abs(moveTo.getCol() - moveTo.getRow())) && (this.myField.getCol() + this.myField.getRow() != Math.abs(moveTo.getCol() + moveTo.getRow()))) {
@@ -31,16 +47,7 @@ public class Bishop extends Figure {
         if (!chceck_color()) {
             return false;
         }
-
-        if (!moveTo.isEmpty()) {
-            kill(moveTo);
-        }
-
-        this.myField.remove();
-        moveTo.put(this);
-        this.cancel_highlighting();
         return true;
     }
-
 
 }

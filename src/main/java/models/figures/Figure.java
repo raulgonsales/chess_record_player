@@ -310,6 +310,8 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         return false;
     }
 
-
+    public boolean check_move(BoardField move_to) {
+        return false;
+    }
 }
 

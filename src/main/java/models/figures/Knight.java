@@ -12,6 +12,22 @@ public class Knight extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
+        if (!check_move(moveTo)) {
+            return false;
+        }
+
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
+
+        this.myField.remove();
+        moveTo.put(this);
+        this.cancel_highlighting();
+        return true;
+    }
+
+    @Override
+    public boolean check_move(BoardField moveTo) {
         if (check_field_and_edge(moveTo)) return false;
 
         int x, y;
@@ -26,14 +42,6 @@ public class Knight extends Figure {
         if (!chceck_color()) {
             return false;
         }
-
-        if (!moveTo.isEmpty()) {
-            kill(moveTo);
-        }
-
-        this.myField.remove();
-        moveTo.put(this);
-        this.cancel_highlighting();
         return true;
     }
 

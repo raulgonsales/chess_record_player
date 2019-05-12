@@ -13,6 +13,8 @@ import javafx.stage.FileChooser;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
+import main.java.models.figures.Figure;
+import main.java.parser.Move;
 import main.java.parser.Round;
 
 import java.io.File;
@@ -114,7 +116,7 @@ public class GamePanelController {
 
         highlightAnnotation(Color.BLACK, this.currentMoveIndex);
 
-        if(this.currentMoveIndex == 0) {
+        if (this.currentMoveIndex == 0) {
             this.currentMoveIndex = -1;
             this.prev.setVisible(false);
         } else {
@@ -122,7 +124,7 @@ public class GamePanelController {
             highlightAnnotation(Color.RED, this.currentMoveIndex);
         }
 
-        if(this.hasStarted) {
+        if (this.hasStarted) {
             this.timer.cancel();
             this.pause.setVisible(false);
             this.play.setVisible(true);
@@ -137,7 +139,7 @@ public class GamePanelController {
     public void next() throws IOException {
         this.prev.setVisible(true);
 
-        if(this.currentMoveIndex == -1) {
+        if (this.currentMoveIndex == -1) {
             this.currentMoveIndex = 0;
         } else {
             highlightAnnotation(Color.BLACK, this.currentMoveIndex);
@@ -181,7 +183,7 @@ public class GamePanelController {
                     }
                 }, 0, 2000);
     }
-    
+
     public void highlightAnnotation(Color color, int index) {
         Text annotation = (Text) this.annotationContainer.getChildren().get(index);
         annotation.setFill(color);
@@ -255,5 +257,10 @@ public class GamePanelController {
         }
         alert.showAndWait();
         this.game_panel.setMouseTransparent(true);
+    }
+
+    public Figure find_figure(Move move) {
+
+        return null;
     }
 }

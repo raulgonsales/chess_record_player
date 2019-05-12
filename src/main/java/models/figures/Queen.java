@@ -12,6 +12,22 @@ public class Queen extends Figure {
 
     @Override
     public boolean move(BoardField moveTo) {
+        if (!check_move(moveTo)) {
+            return false;
+        }
+
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
+
+        this.myField.remove();
+        moveTo.put(this);
+        this.cancel_highlighting();
+        return true;
+    }
+
+    @Override
+    public boolean check_move(BoardField moveTo) {
         if (check_field_and_edge(moveTo)) return false;
 
         if (moveTo.getRow() > this.myField.getRow() && moveTo.getCol() > this.myField.getCol()) {
@@ -42,13 +58,6 @@ public class Queen extends Figure {
             return false;
         }
 
-        if (!moveTo.isEmpty()) {
-            kill(moveTo);
-        }
-
-        this.myField.remove();
-        moveTo.put(this);
-        this.cancel_highlighting();
         return true;
     }
 }
