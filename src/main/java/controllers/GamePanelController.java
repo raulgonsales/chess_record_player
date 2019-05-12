@@ -1,6 +1,5 @@
 package main.java.controllers;
 
-import javafx.animation.PauseTransition;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -11,7 +10,6 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
-import javafx.util.Duration;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
@@ -20,16 +18,13 @@ import main.java.parser.Round;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import static java.lang.Thread.sleep;
-
 
 public class GamePanelController {
-    private int currentMoveIndex = 0;
+    private int currentMoveIndex = -1;
 
     @FXML
     private Button play;
@@ -43,6 +38,7 @@ public class GamePanelController {
     private Button save_game;
 
     private Timer timer;
+    private boolean hasStarted = false;
 
     private ArrayList<Round> list_round;
 
@@ -78,7 +74,6 @@ public class GamePanelController {
         this.pause.setVisible(false);
         this.prev.setVisible(false);
         StackPane.setAlignment(this.save_game, Pos.TOP_RIGHT);
-        highlightAnnotation(Color.RED);
     }
 
     /**
@@ -115,13 +110,23 @@ public class GamePanelController {
      * @throws IOException
      */
     public void prev() throws IOException {
-        highlightAnnotation(Color.BLACK);
-        this.currentMoveIndex -= 1;
         this.next.setVisible(true);
-        if (this.currentMoveIndex == 0) {
+
+        highlightAnnotation(Color.BLACK, this.currentMoveIndex);
+
+        if(this.currentMoveIndex == 0) {
+            this.currentMoveIndex = -1;
             this.prev.setVisible(false);
+        } else {
+            this.currentMoveIndex -= 1;
+            highlightAnnotation(Color.RED, this.currentMoveIndex);
         }
-        highlightAnnotation(Color.RED);
+
+        if(this.hasStarted) {
+            this.timer.cancel();
+            this.pause.setVisible(false);
+            this.play.setVisible(true);
+        }
     }
 
     /**
@@ -130,13 +135,26 @@ public class GamePanelController {
      * @throws IOException
      */
     public void next() throws IOException {
-        highlightAnnotation(Color.BLACK);
-        this.currentMoveIndex += 1;
         this.prev.setVisible(true);
+
+        if(this.currentMoveIndex == -1) {
+            this.currentMoveIndex = 0;
+        } else {
+            highlightAnnotation(Color.BLACK, this.currentMoveIndex);
+            this.currentMoveIndex += 1;
+        }
+
+        highlightAnnotation(Color.RED, this.currentMoveIndex);
+
         if (this.currentMoveIndex == this.list_round.size() - 1) {
             this.next.setVisible(false);
+
+            if (this.hasStarted) {
+                this.timer.cancel();
+                this.pause.setVisible(false);
+                this.play.setVisible(false);
+            }
         }
-        highlightAnnotation(Color.RED);
     }
 
     /**
@@ -156,6 +174,7 @@ public class GamePanelController {
                     public void run() {
                         try {
                             next();
+                            hasStarted = true;
                         } catch (IOException e) {
                             e.printStackTrace();
                         }
@@ -163,8 +182,8 @@ public class GamePanelController {
                 }, 0, 2000);
     }
     
-    public void highlightAnnotation(Color color) {
-        Text annotation = (Text) this.annotationContainer.getChildren().get(this.currentMoveIndex);
+    public void highlightAnnotation(Color color, int index) {
+        Text annotation = (Text) this.annotationContainer.getChildren().get(index);
         annotation.setFill(color);
     }
 
