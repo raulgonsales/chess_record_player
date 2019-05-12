@@ -3,8 +3,10 @@ package main.java.controllers;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import main.java.game.Game;
 import main.java.game.GameFactory;
@@ -12,10 +14,15 @@ import main.java.models.Board;
 import main.java.controllers.StartPageController;
 import main.java.parser.Round;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
 public class GamePanelController {
+    @FXML
+    private Button play;
+    @FXML
+    private Button pause;
 
     private ArrayList<Round> list_round;
 
@@ -45,6 +52,46 @@ public class GamePanelController {
 
         this.createAnnotationPanel();
         this.setInitialAnnotation();
+
+        this.pause.setVisible(false);
+    }
+
+    /**
+     * Handle click to the button prev
+     *
+     * @throws IOException
+     */
+    public void prev() throws IOException {
+        System.out.println("test");
+    }
+
+    /**
+     * Handle click to the button next
+     *
+     * @throws IOException
+     */
+    public void next() throws IOException {
+        System.out.println("test");
+    }
+
+    /**
+     * Handle click to the button play
+     *
+     * @throws IOException
+     */
+    public void play() throws IOException {
+        this.play.setVisible(false);
+        this.pause.setVisible(true);
+    }
+
+    /**
+     * Handle click to the button pause
+     *
+     * @throws IOException
+     */
+    public void pause() throws IOException {
+        this.pause.setVisible(false);
+        this.play.setVisible(true);
     }
 
     /**
