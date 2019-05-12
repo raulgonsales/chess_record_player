@@ -7,4 +7,43 @@
 #game_board {
     -fx-background-color: red;
 }
-
+#play_pane {
+    -fx-translate-y: 170;
+    -fx-max-height: 30;
+    -fx-max-width: 180;
+}
+#prev {
+    -fx-pref-width: 30;
+    -fx-pref-height: 30;
+    -fx-cursor: hand;
+    -fx-background-color: none;
+    -fx-border-style: none;
+    -fx-background-image: url("../images/control/prev.png");
+}
+#next {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-cursor: hand;
+    -fx-background-color: none;
+    -fx-border-style: none;
+    -fx-background-image: url("../images/control/next.png");
+    -fx-translate-x: 60;
+}
+#play {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-cursor: hand;
+    -fx-background-color: none;
+    -fx-border-style: none;
+    -fx-background-image: url("../images/control/play.png");
+    -fx-translate-x: 20;
+}
+#pause {
+    -fx-pref-width: 30px;
+    -fx-pref-height: 30px;
+    -fx-cursor: hand;
+    -fx-background-color: none;
+    -fx-border-style: none;
+    -fx-background-image: url("../images/control/pause.png");
+    -fx-translate-x: 50;
+}

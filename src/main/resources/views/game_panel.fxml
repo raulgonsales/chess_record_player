@@ -1,12 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
-
 <?import java.net.URL?>
-<StackPane xmlns="http://javafx.com/javafx"
-           xmlns:fx="http://javafx.com/fxml"
-           fx:id="game_panel">
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.StackPane?>
+
+<StackPane fx:id="game_panel" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1">
     <stylesheets>
-        <URL value="@../style/game_panel.css"/>
+        <URL value="@../style/game_panel.css" />
     </stylesheets>
+   <children>
+      <HBox fx:id="play_pane">
+         <children>
+            <Button fx:id="prev" onMouseClicked="#prev" />
+            <Button fx:id="pause" onMouseClicked="#pause" />
+            <Button fx:id="play" onMouseClicked="#play" />
+            <Button fx:id="next" onMouseClicked="#next" />
+         </children>
+      </HBox>
+   </children>
 </StackPane>
