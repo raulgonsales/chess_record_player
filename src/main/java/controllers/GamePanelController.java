@@ -229,7 +229,6 @@ public class GamePanelController {
     public void end_game(boolean is_White) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game end");
-        System.out.println("tady");
         if (!is_White) {
             alert.setHeaderText("White win");
         } else {
