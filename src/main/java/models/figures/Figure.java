@@ -290,4 +290,12 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 || !moveTo.isEmpty() && this.equals(moveTo.get());
 
     }
+    protected void kill(BoardField move_to){
+
+        if(move_to.get() instanceof King){
+
+        }
+        move_to.remove();
+
+    }
 }

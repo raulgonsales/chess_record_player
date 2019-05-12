@@ -23,6 +23,10 @@ public class Knight extends Figure {
             return false;
         }
 
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
+
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();

@@ -30,6 +30,10 @@ public class Rook extends Figure {
 
         } else return false;
 
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
+
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();
