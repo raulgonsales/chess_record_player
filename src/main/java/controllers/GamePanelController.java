@@ -52,8 +52,13 @@ public class GamePanelController {
      */
     public void setInitialAnnotation() {
         for (int i = 0; i < list_round.size(); i++) {
-            this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
-                    list_round.get(i).getWhite().toString() + " " + list_round.get(i).getBlack().toString()));
+            if (list_round.get(i).getBlack() != null && list_round.get(i).getWhite() != null) {
+                this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
+                        list_round.get(i).getWhite().toString() + " " + list_round.get(i).getBlack().toString()));
+            } else if (list_round.get(i).getWhite() != null) {
+                this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
+                        list_round.get(i).getWhite().toString()));
+            }
         }
     }
 

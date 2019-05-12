@@ -31,6 +31,7 @@ public class Bishop extends Figure {
 
         this.myField.remove();
         moveTo.put(this);
+        this.cancel_highlighting();
         return true;
     }
 

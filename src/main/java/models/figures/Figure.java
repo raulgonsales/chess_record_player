@@ -22,12 +22,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         getStylesheets().addAll(this.getClass().getResource("../../../resources/style/figures.css").toExternalForm());
 
         this.setOnMouseClicked(event -> {
-            Board board = this.myField.getBoard();
-            for (int i = 1; i < board.getBoardSize() - 1; i++) {
-                for (int j = 1; j < board.getBoardSize() - 1; j++) {
-                    board.getFields()[i][j].setBorder(Border.EMPTY);
-                }
-            }
+            cancel_highlighting();
             this.myField.positiveHighlightField();
 
             if (this instanceof Pawn) {
@@ -69,8 +64,50 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         });
     }
 
+    protected void cancel_highlighting() {
+        Board board = this.myField.getBoard();
+        for (int i = 1; i < board.getBoardSize() - 1; i++) {
+            for (int j = 1; j < board.getBoardSize() - 1; j++) {
+                board.getFields()[i][j].setBorder(Border.EMPTY);
+            }
+        }
+    }
+
     private void makePawnWayHighlighting() {
-        this.myField.nextField(this.isWhite ? Field.Direction.U : Field.Direction.D).positiveHighlightField();
+
+        Field tmp = this.myField;
+        if ((this.isWhite && this.myField.getRow() == 2) || ((!this.isWhite && this.myField.getRow() == 7))) {
+            if (this.isWhite() && this.myField.nextField(Field.Direction.U).nextField(Field.Direction.U).isEmpty() &&
+                    this.myField.nextField(Field.Direction.U).isEmpty()) {
+                this.myField.nextField(Field.Direction.U).nextField(Field.Direction.U).positiveHighlightField();
+            } else if (!this.isWhite()) {
+                if (this.myField.nextField(Field.Direction.D).nextField(Field.Direction.D).isEmpty() &&
+                        this.myField.nextField(Field.Direction.D).isEmpty())
+                    this.myField.nextField(Field.Direction.D).nextField(Field.Direction.D).positiveHighlightField();
+            }
+
+        }
+        if (this.isWhite()) {
+            if (this.myField.nextField(Field.Direction.U).isEmpty()) {
+                this.myField.nextField(Field.Direction.U).positiveHighlightField();
+            }
+            if (!this.myField.nextField(Field.Direction.LU).isEmpty()) {
+                this.myField.nextField(Field.Direction.LU).positiveHighlightField();
+            }
+            if (!this.myField.nextField(Field.Direction.RU).isEmpty()) {
+                this.myField.nextField(Field.Direction.RU).positiveHighlightField();
+            }
+        } else if (!this.isWhite()) {
+            if (this.myField.nextField(Field.Direction.D).isEmpty()) {
+                this.myField.nextField(Field.Direction.D).positiveHighlightField();
+            }
+            if (!this.myField.nextField(Field.Direction.LD).isEmpty()) {
+                this.myField.nextField(Field.Direction.LD).positiveHighlightField();
+            }
+            if (!this.myField.nextField(Field.Direction.RD).isEmpty()) {
+                this.myField.nextField(Field.Direction.RD).positiveHighlightField();
+            }
+        }
     }
 
     private void makeKingWayHighlighting() {
