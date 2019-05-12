@@ -187,12 +187,19 @@ public class GamePanelController {
         Figure figure = null;
         BoardField moveTo = null;
 
+        System.out.println(this.currentMoveBlockIndex);
+        if(this.currentMoveBlockIndex == 7) {
+            System.out.println(this.currentMoveBlockIndex);
+        }
+
         if(this.currentMoveIndex == 0) {
             Move move = this.list_round.get(currentMoveBlockIndex).getWhite();
             moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
             figure = this.find_figure(move);
         } else if (this.currentMoveIndex == 1) {
+            Move move = this.list_round.get(currentMoveBlockIndex).getBlack();
             figure = this.find_figure(this.list_round.get(currentMoveBlockIndex).getBlack());
+            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
         }
 
         if (figure != null) {
@@ -382,19 +389,24 @@ public class GamePanelController {
         } else {
             for (int i = 1; i <= game.getBoard().getBoardSize() - 2; i++) {
                 for (int j = 1; j <= game.getBoard().getBoardSize() - 2; j++) {
-
                     tmp = (Figure) game.getBoard().getField(i, j).get();
                     if (tmp == null) {
                         continue;
                     }
+                    if(i==2 && j==8) {
+                        System.out.println("test");
+                    }
                     if (tmp.check_move(moveTo) == true) {
-                        if (tmp.getFigureName() == "P") {
+                        if (tmp.getFigureName().equals("P")) {
                             if (move.getStone() != null) {
-                                return null;
+                                continue;
                             }
                         } else {
-                            if (move.getStone() != tmp.getFigureName()) {
-                                return null;
+                            if(move.getStone() == null) {
+                                continue;
+                            }
+                            if (!move.getStone().equals(tmp.getFigureName())) {
+                                continue;
                             }
                         }
 

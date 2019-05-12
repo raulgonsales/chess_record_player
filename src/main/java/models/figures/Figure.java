@@ -283,6 +283,10 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 return true;
             }
             tmp = tmp.nextField(dir);
+
+            if(tmp instanceof BoardFieldEdge) {
+                return false;
+            }
         }
         return false;
     }

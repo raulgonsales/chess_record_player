@@ -20,6 +20,7 @@ public class Bishop extends Figure {
             kill(moveTo);
         }
 
+        this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();
@@ -35,13 +36,21 @@ public class Bishop extends Figure {
         }
 
         if (moveTo.getRow() > this.myField.getRow() && moveTo.getCol() > this.myField.getCol()) {
-            if (check_way(moveTo, Field.Direction.RU)) return false;
+            if (check_way(moveTo, Field.Direction.RU)) {
+                return false;
+            }
         } else if (moveTo.getRow() < this.myField.getRow() && moveTo.getCol() < this.myField.getCol()) {
-            if (check_way(moveTo, Field.Direction.LD)) return false;
+            if (check_way(moveTo, Field.Direction.LD)) {
+                return false;
+            }
         } else if (moveTo.getRow() > this.myField.getRow() && moveTo.getCol() < this.myField.getCol()) {
-            if (check_way(moveTo, Field.Direction.LU)) return false;
+            if (check_way(moveTo, Field.Direction.LU)) {
+                return false;
+            }
         } else {
-            if (check_way(moveTo, Field.Direction.RD)) return false;
+            if (check_way(moveTo, Field.Direction.RD)) {
+                return false;
+            }
         }
 
         if (!chceck_color()) {
