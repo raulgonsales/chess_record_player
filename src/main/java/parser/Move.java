@@ -143,4 +143,32 @@ public class Move {
     public int hashCode() {
         return Objects.hash(getFrom_row(), getFrom_col(), getTo_row(), getTo_col(), stone, defend, check, check_mat, swap_stone);
     }
+
+    private String int_to_str(int i) {
+        if (i == 1) return "a";
+        if (i == 2) return "b";
+        if (i == 3) return "c";
+        if (i == 4) return "d";
+        if (i == 5) return "e";
+        if (i == 6) return "f";
+        if (i == 7) return "g";
+        if (i == 8) return "h";
+        else return "X";
+
+    }
+
+    @Override
+    public String toString() {
+        String ret = "";
+        if (this.stone != null) ret += this.stone;
+        if (this.from_col != 0) ret += int_to_str(this.from_col);
+        if (this.from_row != 0) ret += this.from_row;
+        if (this.defend) ret += "x";
+        if (this.to_col != 0) ret += int_to_str(this.to_col);
+        if (this.to_row != 0) ret += this.to_row;
+        if (this.swap_stone != null) ret += this.swap_stone;
+        if (this.check) ret += "+";
+        if (this.check_mat) ret += "#";
+        return ret;
+    }
 }

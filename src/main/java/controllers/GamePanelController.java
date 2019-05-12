@@ -51,8 +51,9 @@ public class GamePanelController {
      * Sets annotation to annotation panel from initial file with all saved annotations
      */
     public void setInitialAnnotation() {
-        for (int i = 0; i <= 10; i++) {
-            this.annotationContainer.getChildren().add(this.createMoveAnnotation("Example "+i));
+        for (int i = 0; i < list_round.size(); i++) {
+            this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
+                    list_round.get(i).getWhite().toString() + " " + list_round.get(i).getBlack().toString()));
         }
     }
 
