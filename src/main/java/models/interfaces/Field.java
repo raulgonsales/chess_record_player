@@ -27,6 +27,8 @@ public interface Field {
     void addNextField(Field.Direction dirs, Field field);
     Field nextField(Field.Direction dirs);
 
+
+
     int getCol();
     int getRow();
     boolean isEmpty();

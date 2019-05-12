@@ -34,6 +34,26 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 this.makePawnWayHighlighting();
             }
 
+            if (this instanceof King) {
+                this.makeKingWayHighlighting();
+            }
+
+            if (this instanceof Bishop) {
+                this.makeBishopWayHighlighting();
+            }
+
+            if (this instanceof Knight) {
+                this.makeKnightWayHighlighting();
+            }
+
+            if (this instanceof Queen) {
+                this.makeQueenWayHighlighting();
+            }
+
+
+            if (this instanceof Rook) {
+                this.makeRookWayHighlighting();
+            }
         });
 
         setOnDragDetected(event -> {
@@ -51,6 +71,120 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
 
     private void makePawnWayHighlighting() {
         this.myField.nextField(this.isWhite ? Field.Direction.U : Field.Direction.D).positiveHighlightField();
+    }
+
+    private void makeKingWayHighlighting() {
+
+        for (int j = 0; j < 8; j++) {
+            Field tmp = this.myField.nextField(Field.Direction.values()[j]);
+
+            if ((tmp.isEmpty() || tmp.get().isWhite() != this.isWhite) && (!(check_field_and_edge((BoardField) tmp)))) {
+                tmp.positiveHighlightField();
+            }
+
+        }
+
+
+    }
+
+    private void makeBishopWayHighlighting() {
+        Field tmp = this.myField;
+        bishop_dir_highlight(tmp, Field.Direction.RU);
+        bishop_dir_highlight(tmp, Field.Direction.RD);
+        bishop_dir_highlight(tmp, Field.Direction.LU);
+        bishop_dir_highlight(tmp, Field.Direction.LD);
+
+    }
+
+    private void bishop_dir_highlight(Field tmp, Field.Direction ru) {
+        while (!(tmp instanceof BoardFieldEdge)) {
+            if (!tmp.nextField(ru).isEmpty()) {
+                if (tmp.nextField(ru).get().isWhite() != this.isWhite()) {
+                    tmp = tmp.nextField(ru);
+                    tmp.positiveHighlightField();
+                    return;
+                }
+                break;
+            }
+            tmp = tmp.nextField(ru);
+            if ((tmp.isEmpty() || tmp.get().isWhite() != this.isWhite) && (!(check_field_and_edge((BoardField) tmp)))) {
+                tmp.positiveHighlightField();
+            }
+        }
+    }
+
+    private void makeKnightWayHighlighting() {
+        knight_dir_highligth(Field.Direction.D, Field.Direction.L);
+        knight_dir_highligth(Field.Direction.D, Field.Direction.R);
+        knight_dir_highligth(Field.Direction.U, Field.Direction.L);
+        knight_dir_highligth(Field.Direction.U, Field.Direction.R);
+        knight_dir_highligth(Field.Direction.L, Field.Direction.D);
+        knight_dir_highligth(Field.Direction.L, Field.Direction.U);
+        knight_dir_highligth(Field.Direction.R, Field.Direction.D);
+        knight_dir_highligth(Field.Direction.R, Field.Direction.U);
+    }
+
+    private void knight_dir_highligth(Field.Direction f, Field.Direction s) {
+        Field tmp;
+        tmp = this.myField;
+        tmp = tmp.nextField(f);
+        if (knight_highligth(f, s, tmp, tmp.nextField(f), tmp.nextField(s))) return;
+
+        tmp = this.myField;
+        tmp = tmp.nextField(s);
+        if (knight_highligth(f, f, tmp, tmp.nextField(s), tmp.nextField(s))) return;
+    }
+
+    private boolean knight_highligth(Field.Direction f, Field.Direction s, Field tmp, Field field, Field field2) {
+        if (tmp instanceof BoardFieldEdge) return true;
+        tmp = tmp.nextField(f);
+        if (tmp instanceof BoardFieldEdge) return true;
+        tmp = tmp.nextField(s);
+        if ((tmp.isEmpty() || tmp.get().isWhite() != this.isWhite) && (!(check_field_and_edge((BoardField) tmp)))) {
+            tmp.positiveHighlightField();
+        }
+
+        tmp = this.myField;
+        tmp = field;
+        if (tmp instanceof BoardFieldEdge) return true;
+        tmp = field2;
+        if (tmp instanceof BoardFieldEdge) return true;
+        tmp = tmp.nextField(s);
+        if ((tmp.isEmpty() || tmp.get().isWhite() != this.isWhite) && (!(check_field_and_edge((BoardField) tmp)))) {
+            tmp.positiveHighlightField();
+        }
+        return false;
+    }
+
+    private void makeRookWayHighlighting() {
+        Field tmp = this.myField;
+        rook_dir_highlight(tmp, Field.Direction.U);
+        rook_dir_highlight(tmp, Field.Direction.D);
+        rook_dir_highlight(tmp, Field.Direction.L);
+        rook_dir_highlight(tmp, Field.Direction.R);
+    }
+
+    private void rook_dir_highlight(Field tmp, Field.Direction ru) {
+        while (!(tmp instanceof BoardFieldEdge)) {
+            if (!tmp.nextField(ru).isEmpty()) {
+                if (tmp.nextField(ru).get().isWhite() != this.isWhite()) {
+                    tmp = tmp.nextField(ru);
+                    tmp.positiveHighlightField();
+                    return;
+                }
+                break;
+            }
+            tmp = tmp.nextField(ru);
+            if ((tmp.isEmpty() || tmp.get().isWhite() != this.isWhite) && (!(check_field_and_edge((BoardField) tmp)))) {
+                tmp.positiveHighlightField();
+            }
+        }
+    }
+
+    private void makeQueenWayHighlighting() {
+        makeBishopWayHighlighting();
+        makeRookWayHighlighting();
+
     }
 
     @Override
@@ -117,5 +251,6 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         return moveTo.equals(this.myField)
                 || (moveTo instanceof BoardFieldEdge)
                 || !moveTo.isEmpty() && this.equals(moveTo.get());
+
     }
 }
