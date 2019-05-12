@@ -3,6 +3,7 @@ package main.java.controllers;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
@@ -41,6 +42,7 @@ public class GamePanelController {
 
     public void initialize() {
         Board board = new Board(8);
+        board.setGamePanelController(this);
         board.setMaxWidth(630);
         board.setMaxHeight(630);
         board.setTranslateY(20);
@@ -141,7 +143,16 @@ public class GamePanelController {
         this.annotationContainer = root;
     }
 
-    public void end_game(boolean is_White){
-        
+    public void end_game(boolean is_White) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Game end");
+        System.out.println("tady");
+        if (is_White) {
+            alert.setHeaderText("White win");
+        } else {
+            alert.setHeaderText("Black win");
+        }
+        alert.showAndWait();
+        this.game_panel.setMouseTransparent(true);
     }
 }

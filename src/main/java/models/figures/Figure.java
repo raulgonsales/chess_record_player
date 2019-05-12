@@ -1,9 +1,11 @@
 package main.java.models.figures;
 
+import javafx.scene.control.Alert;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
+import main.java.controllers.StartPageController;
 import main.java.models.Board;
 import main.java.models.BoardField;
 import main.java.models.BoardFieldEdge;
@@ -290,12 +292,15 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
                 || !moveTo.isEmpty() && this.equals(moveTo.get());
 
     }
-    protected void kill(BoardField move_to){
 
-        if(move_to.get() instanceof King){
+    protected void kill(BoardField move_to) {
 
+        if (move_to.get() instanceof King) {
+            this.myField.getBoard().getGamePanelController().end_game(move_to.get().isWhite());
         }
         move_to.remove();
-
     }
+
+
 }
+

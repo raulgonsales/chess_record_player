@@ -5,11 +5,13 @@ import javafx.geometry.Pos;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import main.java.controllers.GamePanelController;
 import main.java.models.interfaces.Field;
 
 public class Board extends StackPane {
     private BoardField[][] fields;
     private int boardSize;
+    private GamePanelController gamePanelController;
 
     enum EdgesLabels {
         a(1),
@@ -34,6 +36,14 @@ public class Board extends StackPane {
         this.fields = new BoardField[this.boardSize][this.boardSize];
 
         initBoardFields();
+    }
+
+    public void setGamePanelController(GamePanelController gamePanelController) {
+        this.gamePanelController = gamePanelController;
+    }
+
+    public GamePanelController getGamePanelController() {
+        return gamePanelController;
     }
 
     private void initBoardFields() {
