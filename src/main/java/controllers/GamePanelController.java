@@ -21,7 +21,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.atomic.AtomicInteger;
 
 
 public class GamePanelController {
@@ -91,23 +90,25 @@ public class GamePanelController {
         try {
             FileWriter fw = new FileWriter(file);
             annotationContainer.getChildren().forEach(element -> {
-                ((HBox) element).getChildren().forEach(text -> {
-                    try {
-                        fw.write(((Text) text).getText());
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                });
-                try {
-                    fw.write("\n");
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                HBox movesBlock = (HBox) ((HBox) element).getChildren().get(1);
+                Text iteration = (Text) ((HBox) element).getChildren().get(0);
+                this.writeToFile(fw, iteration);
+
+                movesBlock.getChildren().forEach(text -> this.writeToFile(fw, (Text) text));
+                this.writeToFile(fw, new Text("\n"));
             });
             fw.flush();
             fw.close();
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public void writeToFile(FileWriter fw, Text data) {
+        try {
+            fw.write(((Text) data).getText());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -218,7 +219,8 @@ public class GamePanelController {
     
     public void highlightAnnotation(Color color, int blockIndex, int moveIndex) {
         HBox moveBlock = (HBox) this.annotationContainer.getChildren().get(blockIndex);
-        Text moveAnnotation = (Text) moveBlock.getChildren().get(moveIndex);
+        HBox moveAnnotationBlock = (HBox) moveBlock.getChildren().get(1);
+        Text moveAnnotation = (Text) moveAnnotationBlock.getChildren().get(moveIndex);
         moveAnnotation.setFill(color);
     }
 
@@ -228,16 +230,18 @@ public class GamePanelController {
     public void setInitialAnnotation() {
         for (int i = 0; i < list_round.size(); i++) {
             HBox annotationBlock = new HBox();
+            annotationBlock.getChildren().add(new Text((i+1) + ". "));
 
-            Text textWhite = createMoveAnnotation((i+1) + ". " + this.list_round.get(i).getWhite().toString());
-
+            HBox annotationMovesBlock = new HBox();
+            Text textWhite = createMoveAnnotation(this.list_round.get(i).getWhite().toString());
             if (list_round.get(i).getBlack() != null && list_round.get(i).getWhite() != null) {
                 Text textBlack = createMoveAnnotation(" " + this.list_round.get(i).getBlack().toString());
-                annotationBlock.getChildren().addAll(textWhite, textBlack);
+                annotationMovesBlock.getChildren().addAll(textWhite, textBlack);
             } else if (list_round.get(i).getWhite() != null) {
-                annotationBlock.getChildren().addAll(textWhite);
+                annotationMovesBlock.getChildren().addAll(textWhite);
             }
 
+            annotationBlock.getChildren().add(annotationMovesBlock);
             this.annotationContainer.getChildren().add(annotationBlock);
         }
     }
