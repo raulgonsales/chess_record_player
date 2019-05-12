@@ -47,3 +47,17 @@
     -fx-background-image: url("../images/control/pause.png");
     -fx-translate-x: 50;
 }
+#save_game {
+    -fx-pref-width: 50px;
+    -fx-pref-height: 50px;
+    -fx-cursor: hand;
+    -fx-background-color: none;
+    -fx-border-style: none;
+    -fx-background-image: url("../images/control/save.png");
+    -fx-translate-x: -20;
+    -fx-translate-y: 20;
+    -fx-opacity: 0.6;
+}
+#save_game:hover {
+    -fx-opacity: 1;
+}
