@@ -93,4 +93,8 @@ public class GamePanelController {
 
         this.annotationContainer = root;
     }
+
+    public void end_game(boolean is_White){
+        
+    }
 }

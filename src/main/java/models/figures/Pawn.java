@@ -39,6 +39,10 @@ public class Pawn extends Figure {
             }
         }
 
+        if(!moveTo.isEmpty()){
+           kill(moveTo);
+        }
+
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();

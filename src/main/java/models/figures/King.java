@@ -21,6 +21,9 @@ public class King extends Figure {
             return false;
         }
 
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+        }
 
         this.myField.remove();
         moveTo.put(this);
