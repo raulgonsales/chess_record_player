@@ -22,7 +22,7 @@ public class Pawn extends Figure {
         if (moveTo.isEmpty()) {
             if (this.isWhite && moveTo.getRow() < this.myField.getRow() ||
                     !this.isWhite && moveTo.getRow() > this.myField.getRow() ||
-                    Math.abs(moveTo.getRow() - this.myField.getRow()) >= distance) {
+                    Math.abs(moveTo.getRow() - this.myField.getRow()) >= distance || moveTo.getCol() != this.myField.getCol()) {
                 return false;
             }
         } else {
@@ -39,8 +39,12 @@ public class Pawn extends Figure {
             }
         }
 
-        if(!moveTo.isEmpty()){
-           kill(moveTo);
+        if (!chceck_color()) {
+            return false;
+        }
+
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
         }
 
         this.myField.remove();

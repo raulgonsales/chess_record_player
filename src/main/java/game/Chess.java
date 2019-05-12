@@ -12,7 +12,7 @@ public class Chess implements Game {
     }
 
     private void initFigures() {
-        for(int i = 1; i < board.getBoardSize() - 1; i++) {
+        for (int i = 1; i < board.getBoardSize() - 1; i++) {
             this.board.getField(i, 2).put(new Pawn(true));
             this.board.getField(i, 7).put(new Pawn(false));
 

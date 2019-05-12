@@ -30,6 +30,10 @@ public class Rook extends Figure {
 
         } else return false;
 
+
+        if (!chceck_color()) {
+            return false;
+        }
         if (!moveTo.isEmpty()) {
             kill(moveTo);
         }

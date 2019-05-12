@@ -26,30 +26,31 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         this.setOnMouseClicked(event -> {
             cancel_highlighting();
             this.myField.positiveHighlightField();
+            if (this.isWhite() == this.myField.getBoard().getWhites_round()) {
+                if (this instanceof Pawn) {
+                    this.makePawnWayHighlighting();
+                }
 
-            if (this instanceof Pawn) {
-                this.makePawnWayHighlighting();
-            }
+                if (this instanceof King) {
+                    this.makeKingWayHighlighting();
+                }
 
-            if (this instanceof King) {
-                this.makeKingWayHighlighting();
-            }
+                if (this instanceof Bishop) {
+                    this.makeBishopWayHighlighting();
+                }
 
-            if (this instanceof Bishop) {
-                this.makeBishopWayHighlighting();
-            }
+                if (this instanceof Knight) {
+                    this.makeKnightWayHighlighting();
+                }
 
-            if (this instanceof Knight) {
-                this.makeKnightWayHighlighting();
-            }
-
-            if (this instanceof Queen) {
-                this.makeQueenWayHighlighting();
-            }
+                if (this instanceof Queen) {
+                    this.makeQueenWayHighlighting();
+                }
 
 
-            if (this instanceof Rook) {
-                this.makeRookWayHighlighting();
+                if (this instanceof Rook) {
+                    this.makeRookWayHighlighting();
+                }
             }
         });
 
@@ -93,20 +94,20 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
             if (this.myField.nextField(Field.Direction.U).isEmpty()) {
                 this.myField.nextField(Field.Direction.U).positiveHighlightField();
             }
-            if (!this.myField.nextField(Field.Direction.LU).isEmpty()) {
+            if (!this.myField.nextField(Field.Direction.LU).isEmpty() && !this.myField.nextField(Field.Direction.LU).get().isWhite()) {
                 this.myField.nextField(Field.Direction.LU).positiveHighlightField();
             }
-            if (!this.myField.nextField(Field.Direction.RU).isEmpty()) {
+            if (!this.myField.nextField(Field.Direction.RU).isEmpty() && !this.myField.nextField(Field.Direction.RU).get().isWhite()) {
                 this.myField.nextField(Field.Direction.RU).positiveHighlightField();
             }
         } else if (!this.isWhite()) {
             if (this.myField.nextField(Field.Direction.D).isEmpty()) {
                 this.myField.nextField(Field.Direction.D).positiveHighlightField();
             }
-            if (!this.myField.nextField(Field.Direction.LD).isEmpty()) {
+            if (!this.myField.nextField(Field.Direction.LD).isEmpty() && this.myField.nextField(Field.Direction.LD).get().isWhite()) {
                 this.myField.nextField(Field.Direction.LD).positiveHighlightField();
             }
-            if (!this.myField.nextField(Field.Direction.RD).isEmpty()) {
+            if (!this.myField.nextField(Field.Direction.RD).isEmpty() && this.myField.nextField(Field.Direction.RD).get().isWhite()) {
                 this.myField.nextField(Field.Direction.RD).positiveHighlightField();
             }
         }
@@ -299,6 +300,14 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
             this.myField.getBoard().getGamePanelController().end_game(move_to.get().isWhite());
         }
         move_to.remove();
+    }
+
+    protected boolean chceck_color() {
+        if (this.myField.get().isWhite() == this.myField.getBoard().getWhites_round()) {
+            this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
+            return true;
+        }
+        return false;
     }
 
 

@@ -49,6 +49,7 @@ public class GamePanelController {
     public void initialize() {
         Board board = new Board(8);
         board.setGamePanelController(this);
+        board.setWhites_round(true);
         board.setMaxWidth(630);
         board.setMaxHeight(630);
         board.setTranslateY(20);
@@ -75,12 +76,12 @@ public class GamePanelController {
         fileChooser.setTitle("Open Resource File");
         File file = fileChooser.showOpenDialog(null);
 
-        try{
-            FileWriter fw=new FileWriter(file);
+        try {
+            FileWriter fw = new FileWriter(file);
             annotationContainer.getChildren().forEach(element -> {
-                if(element instanceof Text) {
+                if (element instanceof Text) {
                     try {
-                        fw.write(((Text) element).getText()+"\n");
+                        fw.write(((Text) element).getText() + "\n");
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
@@ -88,7 +89,9 @@ public class GamePanelController {
             });
             fw.flush();
             fw.close();
-        }catch(Exception e){System.out.println(e);}
+        } catch (Exception e) {
+            System.out.println(e);
+        }
     }
 
     /**
@@ -180,7 +183,7 @@ public class GamePanelController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game end");
         System.out.println("tady");
-        if (is_White) {
+        if (!is_White) {
             alert.setHeaderText("White win");
         } else {
             alert.setHeaderText("Black win");

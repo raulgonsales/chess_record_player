@@ -11,7 +11,9 @@ import main.java.models.interfaces.Field;
 public class Board extends StackPane {
     private BoardField[][] fields;
     private int boardSize;
+
     private GamePanelController gamePanelController;
+    private Boolean whites_round;
 
     enum EdgesLabels {
         a(1),
@@ -46,12 +48,20 @@ public class Board extends StackPane {
         return gamePanelController;
     }
 
+    public Boolean getWhites_round() {
+        return whites_round;
+    }
+
+    public void setWhites_round(Boolean whites_round) {
+        this.whites_round = whites_round;
+    }
+
     private void initBoardFields() {
         for (int i = 0; i < this.boardSize; i++) {
             for (int j = 0; j < this.boardSize; j++) {
                 BoardField field = new BoardField(i, j);
 
-                if(i == 0 || j == 0 || i == (this.boardSize - 1) || j == (this.boardSize - 1)) {
+                if (i == 0 || j == 0 || i == (this.boardSize - 1) || j == (this.boardSize - 1)) {
                     field = new BoardFieldEdge(i, j);
                     if (j == 0 && (i >= 1 && i <= 8)) {
                         ((BoardFieldEdge) field).setEdgeText(new Text(EdgesLabels.values()[i - 1].toString()));
@@ -63,17 +73,17 @@ public class Board extends StackPane {
 
                 }
                 setAlignment(field, Pos.BOTTOM_LEFT);
-                field.setTranslateX(i*70);
-                field.setTranslateY(-j*70);
+                field.setTranslateX(i * 70);
+                field.setTranslateY(-j * 70);
                 field.setBoard(this);
 
-                if((j % 2 != 0 && i % 2 != 0) || (j % 2 == 0 && i % 2 == 0) && (i != 0 & j != 0)) {
+                if ((j % 2 != 0 && i % 2 != 0) || (j % 2 == 0 && i % 2 == 0) && (i != 0 & j != 0)) {
                     field.setBackground(new Background(new BackgroundFill(Color.GRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                 }
 
                 this.fields[i][j] = field;
 
-                if(j == 9 || i == 9) {
+                if (j == 9 || i == 9) {
                     continue;
                 }
                 this.getChildren().add(field);

@@ -28,7 +28,11 @@ public class Bishop extends Figure {
             if (check_way(moveTo, Field.Direction.RD)) return false;
         }
 
-        if(!moveTo.isEmpty()){
+        if (!chceck_color()) {
+            return false;
+        }
+
+        if (!moveTo.isEmpty()) {
             kill(moveTo);
         }
 
