@@ -116,6 +116,11 @@ public class GamePanelController {
      */
     public void prev() throws IOException {
         highlightAnnotation(Color.BLACK);
+
+        this.timer.cancel();
+        this.pause.setVisible(false);
+        this.play.setVisible(true);
+
         this.currentMoveIndex -= 1;
         this.next.setVisible(true);
         if (this.currentMoveIndex == 0) {
@@ -135,6 +140,9 @@ public class GamePanelController {
         this.prev.setVisible(true);
         if (this.currentMoveIndex == this.list_round.size() - 1) {
             this.next.setVisible(false);
+            this.timer.cancel();
+            this.pause.setVisible(false);
+            this.play.setVisible(false);
         }
         highlightAnnotation(Color.RED);
     }
