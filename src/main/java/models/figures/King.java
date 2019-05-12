@@ -21,6 +21,7 @@ public class King extends Figure {
             kill(moveTo);
         }
 
+        this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();
@@ -41,6 +42,7 @@ public class King extends Figure {
 
         Move move = new Move(this.myField.getRow(), this.myField.getCol(),
                 moveTo.getRow(), moveTo.getCol(), "K", kill, false, null);
+        this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();
