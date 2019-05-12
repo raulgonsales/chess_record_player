@@ -8,13 +8,17 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
 import main.java.controllers.StartPageController;
 import main.java.parser.Round;
 
+import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 
 
@@ -65,7 +69,24 @@ public class GamePanelController {
      * @throws IOException
      */
     public void save() throws IOException {
-        System.out.println("save");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Open Resource File");
+        File file = fileChooser.showOpenDialog(null);
+
+        try{
+            FileWriter fw=new FileWriter(file);
+            annotationContainer.getChildren().forEach(element -> {
+                if(element instanceof Text) {
+                    try {
+                        fw.write(((Text) element).getText()+"\n");
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            fw.flush();
+            fw.close();
+        }catch(Exception e){System.out.println(e);}
     }
 
     /**
