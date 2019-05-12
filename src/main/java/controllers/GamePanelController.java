@@ -29,6 +29,7 @@ import java.util.TimerTask;
 
 public class GamePanelController {
     private int currentMoveIndex = -1;
+    private int currentMoveBlockIndex = -1;
 
     @FXML
     private Button play;
@@ -93,18 +94,25 @@ public class GamePanelController {
         try {
             FileWriter fw = new FileWriter(file);
             annotationContainer.getChildren().forEach(element -> {
-                if (element instanceof Text) {
-                    try {
-                        fw.write(((Text) element).getText() + "\n");
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
+                HBox movesBlock = (HBox) ((HBox) element).getChildren().get(1);
+                Text iteration = (Text) ((HBox) element).getChildren().get(0);
+                this.writeToFile(fw, iteration);
+
+                movesBlock.getChildren().forEach(text -> this.writeToFile(fw, (Text) text));
+                this.writeToFile(fw, new Text("\n"));
             });
             fw.flush();
             fw.close();
         } catch (Exception e) {
             System.out.println(e);
+        }
+    }
+
+    public void writeToFile(FileWriter fw, Text data) {
+        try {
+            fw.write(((Text) data).getText());
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -116,17 +124,26 @@ public class GamePanelController {
     public void prev() throws IOException {
         this.next.setVisible(true);
 
-        highlightAnnotation(Color.BLACK, this.currentMoveIndex);
-
-        if (this.currentMoveIndex == 0) {
+        if (this.currentMoveBlockIndex == 0 && this.currentMoveIndex == 0) {
+            highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
+            this.currentMoveBlockIndex = -1;
             this.currentMoveIndex = -1;
             this.prev.setVisible(false);
+            return;
         } else {
-            this.currentMoveIndex -= 1;
-            highlightAnnotation(Color.RED, this.currentMoveIndex);
+            highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
+
+            if (this.currentMoveIndex == 0) {
+                this.currentMoveBlockIndex -= 1;
+                this.currentMoveIndex = 1;
+            } else if (currentMoveIndex == 1) {
+                currentMoveIndex -= 1;
+            }
         }
 
-        if (this.hasStarted) {
+        highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
+
+        if(this.hasStarted) {
             this.timer.cancel();
             this.pause.setVisible(false);
             this.play.setVisible(true);
@@ -141,16 +158,12 @@ public class GamePanelController {
     public void next() throws IOException {
         this.prev.setVisible(true);
 
-        if (this.currentMoveIndex == -1) {
+        if(this.currentMoveBlockIndex == -1) {
+            this.currentMoveBlockIndex = 0;
             this.currentMoveIndex = 0;
-        } else {
-            highlightAnnotation(Color.BLACK, this.currentMoveIndex);
+        } else if(this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 0) {
+            highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
             this.currentMoveIndex += 1;
-        }
-
-        highlightAnnotation(Color.RED, this.currentMoveIndex);
-
-        if (this.currentMoveIndex == this.list_round.size() - 1) {
             this.next.setVisible(false);
 
             if (this.hasStarted) {
@@ -158,7 +171,18 @@ public class GamePanelController {
                 this.pause.setVisible(false);
                 this.play.setVisible(false);
             }
+        } else {
+            highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
+
+            if (currentMoveIndex == 1) {
+                currentMoveBlockIndex += 1;
+                currentMoveIndex = 0;
+            } else if (currentMoveIndex == 0) {
+                currentMoveIndex += 1;
+            }
         }
+
+        highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
     }
 
     /**
@@ -186,9 +210,11 @@ public class GamePanelController {
                 }, 0, 2000);
     }
 
-    public void highlightAnnotation(Color color, int index) {
-        Text annotation = (Text) this.annotationContainer.getChildren().get(index);
-        annotation.setFill(color);
+    public void highlightAnnotation(Color color, int blockIndex, int moveIndex) {
+        HBox moveBlock = (HBox) this.annotationContainer.getChildren().get(blockIndex);
+        HBox moveAnnotationBlock = (HBox) moveBlock.getChildren().get(1);
+        Text moveAnnotation = (Text) moveAnnotationBlock.getChildren().get(moveIndex);
+        moveAnnotation.setFill(color);
     }
 
     /**
@@ -207,13 +233,20 @@ public class GamePanelController {
      */
     public void setInitialAnnotation() {
         for (int i = 0; i < list_round.size(); i++) {
+            HBox annotationBlock = new HBox();
+            annotationBlock.getChildren().add(new Text((i+1) + ". "));
+
+            HBox annotationMovesBlock = new HBox();
+            Text textWhite = createMoveAnnotation(this.list_round.get(i).getWhite().toString());
             if (list_round.get(i).getBlack() != null && list_round.get(i).getWhite() != null) {
-                this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
-                        list_round.get(i).getWhite().toString() + " " + list_round.get(i).getBlack().toString()));
+                Text textBlack = createMoveAnnotation(" " + this.list_round.get(i).getBlack().toString());
+                annotationMovesBlock.getChildren().addAll(textWhite, textBlack);
             } else if (list_round.get(i).getWhite() != null) {
-                this.annotationContainer.getChildren().add(this.createMoveAnnotation("" + (i + 1) + ". " +
-                        list_round.get(i).getWhite().toString()));
+                annotationMovesBlock.getChildren().addAll(textWhite);
             }
+
+            annotationBlock.getChildren().add(annotationMovesBlock);
+            this.annotationContainer.getChildren().add(annotationBlock);
         }
     }
 
