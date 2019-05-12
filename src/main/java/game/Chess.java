@@ -11,6 +11,10 @@ public class Chess implements Game {
         initFigures();
     }
 
+    public Board getBoard() {
+        return board;
+    }
+
     private void initFigures() {
         for (int i = 1; i < board.getBoardSize() - 1; i++) {
             this.board.getField(i, 2).put(new Pawn(true));

@@ -15,6 +15,27 @@ public class Move {
     private boolean check_mat;
     private String swap_stone;
 
+
+    public String getStone() {
+        return stone;
+    }
+
+    public boolean isDefend() {
+        return defend;
+    }
+
+    public boolean isCheck() {
+        return check;
+    }
+
+    public boolean isCheck_mat() {
+        return check_mat;
+    }
+
+    public String getSwap_stone() {
+        return swap_stone;
+    }
+
     public Move(Move other) {
         this.from_row = other.from_row;
         this.from_col = other.from_col;

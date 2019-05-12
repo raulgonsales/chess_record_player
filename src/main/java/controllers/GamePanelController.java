@@ -10,9 +10,11 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import main.java.game.Chess;
 import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
+import main.java.models.BoardField;
 import main.java.models.figures.Figure;
 import main.java.parser.Move;
 import main.java.parser.Round;
@@ -55,7 +57,7 @@ public class GamePanelController {
     @FXML
     public StackPane game_panel;
 
-    private Game game;
+    private Chess game;
 
     public void initialize() {
         Board board = new Board(8);
@@ -260,6 +262,102 @@ public class GamePanelController {
     }
 
     public Figure find_figure(Move move) {
+        Figure tmp;
+        BoardField moveTo;
+
+        moveTo = game.getBoard().getField(move.getTo_col(), move.getTo_row());
+
+        if (move.getFrom_col() != 0 && move.getFrom_row() != 0) {
+
+            tmp = (Figure) game.getBoard().getField(move.getFrom_col(), move.getFrom_row()).get();
+            if (tmp.getFigureName() == "P") {
+                if (move.getStone() != null) {
+                    return null;
+                }
+            } else {
+                if (move.getStone() != tmp.getFigureName()) {
+                    return null;
+                }
+            }
+            if (tmp.check_move(moveTo) == true) return tmp;
+
+        } else if (move.getFrom_col() != 0) {
+            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
+                tmp = (Figure) game.getBoard().getField(move.getFrom_col(), i).get();
+                if (tmp == null) {
+                    continue;
+                }
+                if (tmp.check_move(moveTo) == true) {
+                    if (tmp.getFigureName() == "P") {
+                        if (move.getStone() != null) {
+                            return null;
+                        }
+                    } else {
+                        if (move.getStone() != tmp.getFigureName()) {
+                            return null;
+                        }
+                    }
+
+                    return tmp;
+                }
+
+
+            }
+
+            return null;
+
+        } else if (move.getFrom_row() != 0) {
+            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
+                tmp = (Figure) game.getBoard().getField(i, move.getFrom_row()).get();
+                if (tmp == null) {
+                    continue;
+                }
+                if (tmp.check_move(moveTo) == true) {
+                    if (tmp.getFigureName() == "P") {
+                        if (move.getStone() != null) {
+                            return null;
+                        }
+                    } else {
+                        if (move.getStone() != tmp.getFigureName()) {
+                            return null;
+                        }
+                    }
+
+                    return tmp;
+                }
+
+
+            }
+            return null;
+
+
+        } else {
+            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
+                for (int j = 1; j <= game.getBoard().getBoardSize(); j++) {
+
+                    tmp = (Figure) game.getBoard().getField(i, j).get();
+                    if (tmp == null) {
+                        continue;
+                    }
+                    if (tmp.check_move(moveTo) == true) {
+                        if (tmp.getFigureName() == "P") {
+                            if (move.getStone() != null) {
+                                return null;
+                            }
+                        } else {
+                            if (move.getStone() != tmp.getFigureName()) {
+                                return null;
+                            }
+                        }
+
+                        return tmp;
+                    }
+
+
+                }
+            }
+            return null;
+        }
 
         return null;
     }
