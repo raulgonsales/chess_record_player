@@ -308,7 +308,6 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
 
     protected boolean chceck_color() {
         if (this.myField.get().isWhite() == this.myField.getBoard().getWhites_round()) {
-            this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
             return true;
         }
         return false;

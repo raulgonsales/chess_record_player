@@ -183,6 +183,21 @@ public class GamePanelController {
         }
 
         highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
+
+        Figure figure = null;
+        BoardField moveTo = null;
+
+        if(this.currentMoveIndex == 0) {
+            Move move = this.list_round.get(currentMoveBlockIndex).getWhite();
+            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
+            figure = this.find_figure(move);
+        } else if (this.currentMoveIndex == 1) {
+            figure = this.find_figure(this.list_round.get(currentMoveBlockIndex).getBlack());
+        }
+
+        if (figure != null) {
+            figure.move(moveTo);
+        }
     }
 
     /**
@@ -315,7 +330,7 @@ public class GamePanelController {
             if (tmp.check_move(moveTo) == true) return tmp;
 
         } else if (move.getFrom_col() != 0) {
-            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
+            for (int i = 0; i < game.getBoard().getBoardSize(); i++) {
                 tmp = (Figure) game.getBoard().getField(move.getFrom_col(), i).get();
                 if (tmp == null) {
                     continue;
@@ -340,7 +355,7 @@ public class GamePanelController {
             return null;
 
         } else if (move.getFrom_row() != 0) {
-            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
+            for (int i = 0; i < game.getBoard().getBoardSize(); i++) {
                 tmp = (Figure) game.getBoard().getField(i, move.getFrom_row()).get();
                 if (tmp == null) {
                     continue;
@@ -365,8 +380,8 @@ public class GamePanelController {
 
 
         } else {
-            for (int i = 1; i <= game.getBoard().getBoardSize(); i++) {
-                for (int j = 1; j <= game.getBoard().getBoardSize(); j++) {
+            for (int i = 1; i <= game.getBoard().getBoardSize() - 2; i++) {
+                for (int j = 1; j <= game.getBoard().getBoardSize() - 2; j++) {
 
                     tmp = (Figure) game.getBoard().getField(i, j).get();
                     if (tmp == null) {
