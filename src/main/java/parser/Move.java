@@ -10,7 +10,7 @@ public class Move {
     private int to_col;
 
     private String stone;
-    private boolean defend;
+    private boolean kill;
     private boolean check;
     private boolean check_mat;
     private String swap_stone;
@@ -20,8 +20,8 @@ public class Move {
         return stone;
     }
 
-    public boolean isDefend() {
-        return defend;
+    public boolean isKill() {
+        return kill;
     }
 
     public boolean isCheck() {
@@ -42,7 +42,7 @@ public class Move {
         this.to_row = other.to_row;
         this.to_col = other.to_col;
         this.stone = other.stone;
-        this.defend = other.defend;
+        this.kill = other.kill;
         this.check = other.check;
         this.check_mat = other.check_mat;
         this.swap_stone = other.swap_stone;
@@ -50,25 +50,25 @@ public class Move {
 
 
     public Move(int from_row, int from_col, int to_row, int to_col, String stone,
-                boolean defend, boolean check, String swap_stone) {
+                boolean kill, boolean check, String swap_stone) {
         this.from_row = from_row;
         this.from_col = from_col;
         this.to_row = to_row;
         this.to_col = to_col;
         this.stone = stone;
-        this.defend = defend;
+        this.kill = kill;
         this.check = check;
         this.swap_stone = swap_stone;
     }
 
     public Move(int from_row, int from_col, int to_row, int to_col, String stone,
-                boolean defend, boolean check, boolean check_mat, String swap_stone) {
+                boolean kill, boolean check, boolean check_mat, String swap_stone) {
         this.from_row = from_row;
         this.from_col = from_col;
         this.to_row = to_row;
         this.to_col = to_col;
         this.stone = stone;
-        this.defend = defend;
+        this.kill = kill;
         this.check = check;
         this.check_mat = check_mat;
         this.swap_stone = swap_stone;
@@ -118,8 +118,8 @@ public class Move {
         this.stone = stone;
     }
 
-    public void setDefend(boolean defend) {
-        this.defend = defend;
+    public void setKill(boolean kill) {
+        this.kill = kill;
     }
 
     public void setCheck(boolean check) {
@@ -153,7 +153,7 @@ public class Move {
                 getFrom_col() == move.getFrom_col() &&
                 getTo_row() == move.getTo_row() &&
                 getTo_col() == move.getTo_col() &&
-                defend == move.defend &&
+                kill == move.kill &&
                 check == move.check &&
                 check_mat == move.check_mat &&
                 Objects.equals(stone, move.stone) &&
@@ -162,7 +162,7 @@ public class Move {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getFrom_row(), getFrom_col(), getTo_row(), getTo_col(), stone, defend, check, check_mat, swap_stone);
+        return Objects.hash(getFrom_row(), getFrom_col(), getTo_row(), getTo_col(), stone, kill, check, check_mat, swap_stone);
     }
 
     private String int_to_str(int i) {
@@ -184,7 +184,7 @@ public class Move {
         if (this.stone != null) ret += this.stone;
         if (this.from_col != 0) ret += int_to_str(this.from_col);
         if (this.from_row != 0) ret += this.from_row;
-        if (this.defend) ret += "x";
+        if (this.kill) ret += "x";
         if (this.to_col != 0) ret += int_to_str(this.to_col);
         if (this.to_row != 0) ret += this.to_row;
         if (this.swap_stone != null) ret += this.swap_stone;

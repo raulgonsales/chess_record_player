@@ -10,7 +10,7 @@ public class Round {
         this.white = null;
     }
 
-    Round(Move white, Move black) {
+    public Round(Move white, Move black) {
         this.black = black;
         this.white = white;
     }

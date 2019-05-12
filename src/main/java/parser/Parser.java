@@ -115,9 +115,9 @@ public class Parser {
         }
         tmp = s.replaceAll(patern, "$4");
         if (tmp.equals("")) {
-            move.setDefend(false);
+            move.setKill(false);
         } else {
-            move.setDefend(true);
+            move.setKill(true);
         }
         tmp = s.replaceAll(patern, "$5");
         if (tmp.equals("")) {

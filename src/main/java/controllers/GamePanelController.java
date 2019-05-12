@@ -83,6 +83,7 @@ public class GamePanelController {
 
     /**
      * Handle click to the button save
+     * Handle click to the button save
      *
      * @throws IOException
      */
@@ -143,7 +144,7 @@ public class GamePanelController {
 
         highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
 
-        if(this.hasStarted) {
+        if (this.hasStarted) {
             this.timer.cancel();
             this.pause.setVisible(false);
             this.play.setVisible(true);
@@ -158,10 +159,10 @@ public class GamePanelController {
     public void next() throws IOException {
         this.prev.setVisible(true);
 
-        if(this.currentMoveBlockIndex == -1) {
+        if (this.currentMoveBlockIndex == -1) {
             this.currentMoveBlockIndex = 0;
             this.currentMoveIndex = 0;
-        } else if(this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 0) {
+        } else if (this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 0) {
             highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
             this.currentMoveIndex += 1;
             this.next.setVisible(false);
@@ -234,7 +235,7 @@ public class GamePanelController {
     public void setInitialAnnotation() {
         for (int i = 0; i < list_round.size(); i++) {
             HBox annotationBlock = new HBox();
-            annotationBlock.getChildren().add(new Text((i+1) + ". "));
+            annotationBlock.getChildren().add(new Text((i + 1) + ". "));
 
             HBox annotationMovesBlock = new HBox();
             Text textWhite = createMoveAnnotation(this.list_round.get(i).getWhite().toString());
@@ -393,5 +394,57 @@ public class GamePanelController {
         }
 
         return null;
+    }
+
+    public int getCurrentMoveIndex() {
+        return currentMoveIndex;
+    }
+
+    public int getCurrentMoveBlockIndex() {
+        return currentMoveBlockIndex;
+    }
+
+    public ArrayList<Round> getList_round() {
+        return list_round;
+    }
+
+    public void setList_round(ArrayList<Round> list_round) {
+        this.list_round = list_round;
+    }
+
+    public void overwrite_list_round(Move move) {
+        ArrayList<Round> list = new ArrayList<>();
+        if (this.currentMoveBlockIndex == -1 && this.currentMoveIndex == -1) {
+            this.currentMoveIndex = 0;
+            list = new ArrayList<>();
+            Round round = new Round(move, null);
+            list.add(round);
+            this.setList_round(list);
+            this.createAnnotationPanel();
+
+        } else {
+            for (int i = 0; i <= currentMoveBlockIndex; i++) {
+                list.add(this.list_round.get(i));
+            }
+
+            if (currentMoveIndex == 1) {
+                Round round = new Round(move, null);
+                list.add(round);
+                //Possible bug
+                currentMoveIndex = 0;
+            } else {
+                currentMoveBlockIndex++;
+
+                Round round = new Round(this.list_round.get(currentMoveBlockIndex).getWhite(), move);
+                list.add(round);
+                currentMoveIndex = 1;
+
+            }
+
+            this.setList_round(list);
+            this.createAnnotationPanel();
+        }
+
+
     }
 }

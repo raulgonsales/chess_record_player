@@ -11,6 +11,8 @@ import main.java.models.BoardField;
 import main.java.models.BoardFieldEdge;
 import main.java.models.interfaces.Field;
 
+import java.io.IOException;
+
 public class Figure extends Pane implements main.java.models.interfaces.Figure {
     protected boolean isWhite;
     protected BoardField myField;
@@ -62,7 +64,6 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
             ClipboardContent content = new ClipboardContent();
             content.putString("" + myField.getCol() + myField.getRow());
             db.setContent(content);
-
             event.consume();
         });
     }
@@ -229,6 +230,11 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
 
     @Override
     public boolean move(BoardField boardField) {
+        return false;
+    }
+
+    @Override
+    public boolean move_for_player(BoardField boardField) {
         return false;
     }
 

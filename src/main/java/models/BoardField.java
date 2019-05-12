@@ -44,7 +44,7 @@ public class BoardField extends StackPane implements Field{
             if (db.hasString()) {
                 int col1 = Integer.parseInt(String.valueOf(db.getString().charAt(0)));
                 int row1 = Integer.parseInt(String.valueOf(db.getString().charAt(1)));
-                board.getField(col1, row1).get().move(BoardField.this);
+                board.getField(col1, row1).get().move_for_player(BoardField.this);
                 success = true;
             }
             /* let the source know whether the string was successfully

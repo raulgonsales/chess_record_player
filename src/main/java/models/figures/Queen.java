@@ -2,6 +2,9 @@ package main.java.models.figures;
 
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
+import main.java.parser.Move;
+
+import java.io.IOException;
 
 public class Queen extends Figure {
     public Queen(boolean isWhite) {
@@ -23,6 +26,29 @@ public class Queen extends Figure {
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();
+        return true;
+    }
+
+
+    @Override
+    public boolean move_for_player(BoardField moveTo){
+        if (!check_move(moveTo)) {
+            return false;
+        }
+
+        boolean kill = false;
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+            kill = true;
+        }
+
+        Move move = new Move(this.myField.getRow(), this.myField.getCol(),
+                moveTo.getRow(), moveTo.getCol(), "D", kill, false, null);
+        this.myField.remove();
+        moveTo.put(this);
+        this.cancel_highlighting();
+        this.myField.getBoard().getGamePanelController().overwrite_list_round(move);
+        this.myField.getBoard().getGamePanelController().setInitialAnnotation();
         return true;
     }
 
