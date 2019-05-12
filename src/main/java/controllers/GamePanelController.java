@@ -23,6 +23,8 @@ public class GamePanelController {
     private Button play;
     @FXML
     private Button pause;
+    @FXML
+    private Button save_game;
 
     private ArrayList<Round> list_round;
 
@@ -54,6 +56,16 @@ public class GamePanelController {
         this.setInitialAnnotation();
 
         this.pause.setVisible(false);
+        StackPane.setAlignment(this.save_game, Pos.TOP_RIGHT);
+    }
+
+    /**
+     * Handle click to the button save
+     *
+     * @throws IOException
+     */
+    public void save() throws IOException {
+        System.out.println("save");
     }
 
     /**

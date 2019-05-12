@@ -11,6 +11,7 @@
         <URL value="@../style/game_panel.css" />
     </stylesheets>
    <children>
+      <Button fx:id="save_game" onMouseClicked="#save"/>
       <HBox fx:id="play_pane">
          <children>
             <Button fx:id="prev" onMouseClicked="#prev" />
