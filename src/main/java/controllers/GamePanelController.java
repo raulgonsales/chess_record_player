@@ -1,5 +1,6 @@
 package main.java.controllers;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -218,12 +219,15 @@ public class GamePanelController {
 
                     @Override
                     public void run() {
-                        try {
-                            next();
-                            hasStarted = true;
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        Platform.runLater(() -> {
+                            try {
+                                next();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+
+                        hasStarted = true;
                     }
                 }, 0, 2000);
     }
