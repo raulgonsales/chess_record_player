@@ -18,6 +18,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     protected boolean isWhite;
     protected BoardField myField;
     protected String figureName = "";
+    protected boolean killedKing;
 
     public Figure(boolean isWhite) {
         this.isWhite = isWhite;
@@ -235,8 +236,31 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     }
 
     @Override
-    public boolean move_for_player(BoardField boardField) {
-        return false;
+    public boolean move_for_player(BoardField moveTo){
+        if (!check_move(moveTo)) {
+            return false;
+        }
+
+        boolean kill = false;
+        if (!moveTo.isEmpty()) {
+            kill(moveTo);
+            kill = true;
+        }
+
+        Move move = new Move(this.myField.getRow(), this.myField.getCol(),
+                moveTo.getRow(), moveTo.getCol(), this.figureName, kill, false, null);
+        this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
+        this.myField.remove();
+        moveTo.put(this);
+        this.cancel_highlighting();
+        this.myField.getBoard().getGamePanelController().overwrite_list_round(move);
+        this.myField.getBoard().getGamePanelController().setInitialAnnotation();
+
+        if(this.killedKing) {
+            this.myField.getBoard().getGamePanelController().end_game(moveTo.get().isWhite());
+        }
+
+        return true;
     }
 
     @Override
@@ -310,11 +334,14 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     }
 
     protected void kill(BoardField move_to) {
-
-        if (move_to.get() instanceof King) {
-            this.myField.getBoard().getGamePanelController().end_game(move_to.get().isWhite());
-        }
+        this.isKingKilled(move_to);
         move_to.remove();
+    }
+
+    protected void isKingKilled(BoardField move_to) {
+        if (move_to.get() instanceof King) {
+            this.killedKing = true;
+        }
     }
 
     protected boolean chceck_color() {

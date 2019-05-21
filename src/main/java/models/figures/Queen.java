@@ -30,30 +30,6 @@ public class Queen extends Figure {
         return true;
     }
 
-
-    @Override
-    public boolean move_for_player(BoardField moveTo){
-        if (!check_move(moveTo)) {
-            return false;
-        }
-
-        boolean kill = false;
-        if (!moveTo.isEmpty()) {
-            kill(moveTo);
-            kill = true;
-        }
-
-        Move move = new Move(this.myField.getRow(), this.myField.getCol(),
-                moveTo.getRow(), moveTo.getCol(), "D", kill, false, null);
-        this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
-        this.myField.remove();
-        moveTo.put(this);
-        this.cancel_highlighting();
-        this.myField.getBoard().getGamePanelController().overwrite_list_round(move);
-        this.myField.getBoard().getGamePanelController().setInitialAnnotation();
-        return true;
-    }
-
     @Override
     public boolean check_move(BoardField moveTo) {
         if (check_field_and_edge(moveTo)) return false;
