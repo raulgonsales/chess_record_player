@@ -10,6 +10,7 @@ import main.java.models.Board;
 import main.java.models.BoardField;
 import main.java.models.BoardFieldEdge;
 import main.java.models.interfaces.Field;
+import main.java.parser.Move;
 
 import java.io.IOException;
 
@@ -23,7 +24,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         setMaxWidth(55);
         setMaxHeight(55);
 
-        getStylesheets().addAll(this.getClass().getResource("../../../resources/style/figures.css").toExternalForm());
+        getStylesheets().addAll(this.getClass().getResource("/main/resources/style/figures.css").toExternalForm());
 
         this.setOnMouseClicked(event -> {
             cancel_highlighting();
@@ -290,7 +291,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
             }
             tmp = tmp.nextField(dir);
 
-            if(tmp instanceof BoardFieldEdge) {
+            if (tmp instanceof BoardFieldEdge) {
                 return false;
             }
         }

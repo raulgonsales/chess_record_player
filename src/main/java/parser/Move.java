@@ -178,6 +178,9 @@ public class Move {
 
     }
 
+    /**
+     * @return string value of move
+     */
     @Override
     public String toString() {
         String ret = "";

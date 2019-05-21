@@ -188,7 +188,7 @@ public class GamePanelController {
         Figure figure = null;
         BoardField moveTo = null;
 
-        if(this.currentMoveIndex == 0) {
+        if (this.currentMoveIndex == 0) {
             Move move = this.list_round.get(currentMoveBlockIndex).getWhite();
             moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
             figure = this.find_figure(move);
@@ -309,9 +309,20 @@ public class GamePanelController {
             alert.setHeaderText("Black win");
         }
         alert.showAndWait();
+        try {
+            this.save();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         this.game_panel.setMouseTransparent(true);
     }
 
+    /**
+     * find figure which can be movet to move
+     *
+     * @param move where to move
+     * @return figure which can be movet to move or null
+     */
     public Figure find_figure(Move move) {
         Figure tmp;
         BoardField moveTo;
@@ -321,12 +332,12 @@ public class GamePanelController {
         if (move.getFrom_col() != 0 && move.getFrom_row() != 0) {
 
             tmp = (Figure) game.getBoard().getField(move.getFrom_col(), move.getFrom_row()).get();
-            if (tmp.getFigureName() == "P") {
+            if (tmp.getFigureName().equals("P")) {
                 if (move.getStone() != null) {
                     return null;
                 }
             } else {
-                if (move.getStone() != tmp.getFigureName()) {
+                if (!move.getStone().equals(tmp.getFigureName())) {
                     return null;
                 }
             }
@@ -339,12 +350,12 @@ public class GamePanelController {
                     continue;
                 }
                 if (tmp.check_move(moveTo) == true) {
-                    if (tmp.getFigureName() == "P") {
+                    if (tmp.getFigureName().equals("P")) {
                         if (move.getStone() != null) {
                             return null;
                         }
                     } else {
-                        if (move.getStone() != tmp.getFigureName()) {
+                        if (!move.getStone().equals(tmp.getFigureName())) {
                             return null;
                         }
                     }
@@ -364,12 +375,12 @@ public class GamePanelController {
                     continue;
                 }
                 if (tmp.check_move(moveTo) == true) {
-                    if (tmp.getFigureName() == "P") {
+                    if (tmp.getFigureName().equals("P")) {
                         if (move.getStone() != null) {
                             return null;
                         }
                     } else {
-                        if (move.getStone() != tmp.getFigureName()) {
+                        if (!move.getStone().equals(tmp.getFigureName())) {
                             return null;
                         }
                     }
@@ -395,7 +406,7 @@ public class GamePanelController {
                                 continue;
                             }
                         } else {
-                            if(move.getStone() == null) {
+                            if (move.getStone() == null) {
                                 continue;
                             }
                             if (!move.getStone().equals(tmp.getFigureName())) {
@@ -431,6 +442,11 @@ public class GamePanelController {
         this.list_round = list_round;
     }
 
+    /**
+     * overwrite list of round with move
+     *
+     * @param move will be add after active move
+     */
     public void overwrite_list_round(Move move) {
         ArrayList<Round> list = new ArrayList<>();
         if (this.currentMoveBlockIndex == -1 && this.currentMoveIndex == -1) {

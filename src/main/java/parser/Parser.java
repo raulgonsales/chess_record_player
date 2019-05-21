@@ -4,15 +4,14 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
-/*
- *
- * err_code:
- *           0-OK
- *           1-file not exist on you dont permissions to read file
- *           2-you dont have permission to write file
- *           3-Syntax error of file
- * */
 
+/**
+ * Parser err_code:
+ * 0-OK
+ * 1-file not exist on you dont permissions to read file
+ * 2-you dont have permission to write file
+ * 3-Syntax error of file
+ */
 public class Parser {
 
     private String path;
@@ -25,6 +24,11 @@ public class Parser {
         err_code = 0;
     }
 
+    /**
+     * method which load data to ArrayList of Strings by lines
+     *
+     * @return true if data was load successfully otherwise false
+     */
     private boolean load_data() {
         try {
             BufferedReader reader;
@@ -44,10 +48,18 @@ public class Parser {
         return true;
     }
 
+    /**
+     *
+     * @return return code of parsing data
+     */
     public int getErr_code() {
         return err_code;
     }
 
+    /**
+     * method which convert file to ArrayList of rounds
+     * @return ArrayList of rounds from file
+     */
     public ArrayList<Round> convert() {
         if (!load_data()) {
             return null;
@@ -90,7 +102,11 @@ public class Parser {
 
     }
 
-
+    /**
+     *
+     * @param s move of one figure in String
+     * @return move which was fill with data from string
+     */
     private Move fill(String s) {
         String patern = "^(K|D|V|S|J|p){0,1}([a-h]){0,1}([1-8]){0,1}(x){0,1}([a-h]){0,1}([1-8]){0,1}(K|D|V|S|J|p){0,1}(\\+){0,1}(#){0,1}$";
         Move move = new Move();
@@ -160,6 +176,11 @@ public class Parser {
         return move;
     }
 
+    /**
+     *
+     * @param s leather to convert
+     * @return int value of leather on board
+     */
     int leatther_to_int(String s) {
 
         char ch = s.charAt(0);
