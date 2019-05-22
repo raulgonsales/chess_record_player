@@ -24,6 +24,7 @@ public class Rook extends Figure {
         }
 
         this.myField.getBoard().setWhites_round(!this.myField.getBoard().getWhites_round());
+
         this.myField.remove();
         moveTo.put(this);
         this.cancel_highlighting();

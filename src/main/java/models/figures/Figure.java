@@ -236,7 +236,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
     }
 
     @Override
-    public boolean move_for_player(BoardField moveTo){
+    public boolean move_for_player(BoardField moveTo) {
         if (!check_move(moveTo)) {
             return false;
         }
@@ -256,7 +256,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         this.myField.getBoard().getGamePanelController().overwrite_list_round(move);
         this.myField.getBoard().getGamePanelController().setInitialAnnotation();
 
-        if(this.killedKing) {
+        if (this.killedKing) {
             this.myField.getBoard().getGamePanelController().end_game(moveTo.get().isWhite());
         }
 
@@ -350,6 +350,7 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         }
         return false;
     }
+
 
     public boolean check_move(BoardField move_to) {
         return false;
