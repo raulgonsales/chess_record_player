@@ -48,7 +48,6 @@ public class GamePanelController {
 
     private ArrayList<Round> list_round;
 
-
     private StartPageController startPageController;
 
     private VBox annotationContainer;
@@ -130,6 +129,7 @@ public class GamePanelController {
      */
     public void prev() throws IOException {
         this.next.setVisible(true);
+        this.play.setVisible(true);
 
         if (this.currentMoveBlockIndex == 0 && this.currentMoveIndex == 0) {
             highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
@@ -328,6 +328,57 @@ public class GamePanelController {
         }
     }
 
+    public void goToSpecificMove() {
+        for (int i = 0; i < this.game.getBoard().getBoardSize(); i++) {
+            for (int j = 0; j < this.game.getBoard().getBoardSize(); j++) {
+                if (this.game.getBoard().getField(i, j).get() != null) {
+                    this.game.getBoard().getField(i, j).remove();
+                }
+            }
+        }
+
+        Board board = new Board(8);
+        board.setGamePanelController(this);
+        board.setWhites_round(true);
+        board.setMaxWidth(630);
+        board.setMaxHeight(630);
+        board.setTranslateY(20);
+        this.game_panel.getChildren().addAll(board);
+        StackPane.setAlignment(board, Pos.TOP_CENTER);
+        Figure figure;
+        BoardField moveTo;
+        Move move;
+
+        this.game = GameFactory.crateChessGame(board);
+        if (currentMoveBlockIndex == -1 && currentMoveIndex == -1) {
+            return;
+        }
+
+        for (int i = 0; i <= currentMoveBlockIndex; i++) {
+
+            move = this.list_round.get(i).getWhite();
+            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
+            figure = this.find_figure(move);
+
+            if (figure != null) {
+                figure.move(moveTo);
+            }
+
+            if (i == currentMoveBlockIndex && currentMoveIndex == 0) {
+                break;
+            }
+
+            move = this.list_round.get(i).getBlack();
+            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
+            figure = this.find_figure(move);
+
+
+            if (figure != null) {
+                figure.move(moveTo);
+            }
+        }
+    }
+
     /**
      * Creates one text annotation for particular movement
      *
@@ -336,7 +387,25 @@ public class GamePanelController {
      */
     public Text createMoveAnnotation(String moveText) {
         Text annotation = new Text(moveText);
-        annotation.setOnMouseClicked(event -> System.out.println(annotation.getText()));
+        annotation.setOnMouseClicked(event -> {
+            HBox currentBlock = (HBox) annotation.getParent();
+            if (this.currentMoveBlockIndex >= 0) {
+                this.highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
+            }
+            this.currentMoveIndex = currentBlock.getChildren().indexOf(annotation);
+            this.currentMoveBlockIndex = this.annotationContainer.getChildren().indexOf(currentBlock.getParent());
+
+            this.goToSpecificMove();
+            this.highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
+            if (this.currentMoveBlockIndex >= 0) {
+                this.prev.setVisible(true);
+            }
+            if(this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 1) {
+                this.next.setVisible(false);
+                this.pause.setVisible(false);
+                this.play.setVisible(false);
+            }
+        });
         return annotation;
     }
 
