@@ -351,7 +351,7 @@ public class GamePanelController {
             if (this.currentMoveBlockIndex >= 0) {
                 this.prev.setVisible(true);
             }
-            if(this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 1) {
+            if (this.currentMoveBlockIndex == this.list_round.size() - 1 && this.currentMoveIndex == 1) {
                 this.next.setVisible(false);
                 this.pause.setVisible(false);
                 this.play.setVisible(false);
@@ -529,8 +529,10 @@ public class GamePanelController {
      */
     public void overwrite_list_round(Move move) {
         ArrayList<Round> list = new ArrayList<>();
+
         if (this.currentMoveBlockIndex == -1 && this.currentMoveIndex == -1) {
             this.currentMoveIndex = 0;
+            currentMoveBlockIndex=0;
             list = new ArrayList<>();
             Round round = new Round(move, null);
             list.add(round);
@@ -538,19 +540,23 @@ public class GamePanelController {
             this.createAnnotationPanel();
 
         } else {
-            for (int i = 0; i <= currentMoveBlockIndex; i++) {
-                list.add(this.list_round.get(i));
-            }
+
 
             if (currentMoveIndex == 1) {
+                for (int i = 0; i < currentMoveBlockIndex; i++) {
+                    list.add(this.list_round.get(i));
+                }
                 Round round = new Round(move, null);
                 list.add(round);
-                //Possible bug
                 currentMoveIndex = 0;
             } else {
-                currentMoveBlockIndex++;
 
+                for (int i = 0; i <= currentMoveBlockIndex; i++) {
+                    list.add(this.list_round.get(i));
+                }
                 Round round = new Round(this.list_round.get(currentMoveBlockIndex).getWhite(), move);
+                list.remove(list.size()-1);
+                currentMoveBlockIndex++;
                 list.add(round);
                 currentMoveIndex = 1;
 
