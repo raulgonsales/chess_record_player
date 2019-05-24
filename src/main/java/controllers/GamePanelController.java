@@ -156,56 +156,7 @@ public class GamePanelController {
             this.play.setVisible(true);
         }
 
-        for (int i = 0; i < this.game.getBoard().getBoardSize(); i++) {
-            for (int j = 0; j < this.game.getBoard().getBoardSize(); j++) {
-                if (this.game.getBoard().getField(i, j).get() != null) {
-                    this.game.getBoard().getField(i, j).remove();
-                }
-            }
-        }
-
-        Board board = new Board(8);
-        board.setGamePanelController(this);
-        board.setWhites_round(true);
-        board.setMaxWidth(630);
-        board.setMaxHeight(630);
-        board.setTranslateY(20);
-        this.game_panel.getChildren().addAll(board);
-        StackPane.setAlignment(board, Pos.TOP_CENTER);
-        Figure figure;
-        BoardField moveTo;
-        Move move;
-
-        this.game = GameFactory.crateChessGame(board);
-        if (currentMoveBlockIndex == -1 && currentMoveIndex == -1) {
-            return;
-        }
-
-        for (int i = 0; i <= currentMoveBlockIndex; i++) {
-
-            move = this.list_round.get(i).getWhite();
-            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
-            figure = this.find_figure(move);
-
-            if (figure != null) {
-                figure.move(moveTo);
-            }
-
-            if (i == currentMoveBlockIndex && currentMoveIndex == 0) {
-                break;
-            }
-
-            move = this.list_round.get(i).getBlack();
-            moveTo = this.game.getBoard().getField(move.getTo_col(), move.getTo_row());
-            figure = this.find_figure(move);
-
-
-            if (figure != null) {
-                figure.move(moveTo);
-            }
-        }
-
-
+        this.reinitBoard();
     }
 
     /**
@@ -328,7 +279,7 @@ public class GamePanelController {
         }
     }
 
-    public void goToSpecificMove() {
+    public void reinitBoard() {
         for (int i = 0; i < this.game.getBoard().getBoardSize(); i++) {
             for (int j = 0; j < this.game.getBoard().getBoardSize(); j++) {
                 if (this.game.getBoard().getField(i, j).get() != null) {
@@ -395,7 +346,7 @@ public class GamePanelController {
             this.currentMoveIndex = currentBlock.getChildren().indexOf(annotation);
             this.currentMoveBlockIndex = this.annotationContainer.getChildren().indexOf(currentBlock.getParent());
 
-            this.goToSpecificMove();
+            this.reinitBoard();
             this.highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
             if (this.currentMoveBlockIndex >= 0) {
                 this.prev.setVisible(true);
