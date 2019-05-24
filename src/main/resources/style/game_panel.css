@@ -10,7 +10,7 @@
 #play_pane {
     -fx-translate-y: 170;
     -fx-max-height: 30;
-    -fx-max-width: 180;
+    -fx-max-width: 240;
 }
 #prev {
     -fx-pref-width: 30;
@@ -46,6 +46,11 @@
     -fx-border-style: none;
     -fx-background-image: url("../images/control/pause.png");
     -fx-translate-x: 50;
+}
+#choose_interval {
+    -fx-pref-height: 30px;
+    -fx-cursor: hand;
+    -fx-translate-x: 90;
 }
 #save_game {
     -fx-pref-width: 50px;

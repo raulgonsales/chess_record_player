@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.net.URL?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.StackPane?>
 
@@ -11,13 +11,14 @@
         <URL value="@../style/game_panel.css" />
     </stylesheets>
    <children>
-      <Button fx:id="save_game" onMouseClicked="#save"/>
-      <HBox fx:id="play_pane">
+      <Button fx:id="save_game" onMouseClicked="#save" />
+      <HBox fx:id="play_pane" maxWidth="232.0" prefHeight="30.0" prefWidth="232.0">
          <children>
             <Button fx:id="prev" onMouseClicked="#prev" />
             <Button fx:id="pause" onMouseClicked="#pause" />
             <Button fx:id="play" onMouseClicked="#play" />
             <Button fx:id="next" onMouseClicked="#next" />
+            <ChoiceBox fx:id="choose_interval"/>
          </children>
       </HBox>
    </children>

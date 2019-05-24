@@ -1,11 +1,15 @@
 package main.java.controllers;
 
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -42,6 +46,10 @@ public class GamePanelController {
     private Button next;
     @FXML
     private Button save_game;
+    @FXML
+    private ChoiceBox choose_interval;
+
+    private int timer_interval = 1000;
 
     private Timer timer;
     private boolean hasStarted = false;
@@ -73,6 +81,39 @@ public class GamePanelController {
 
         this.game = GameFactory.crateChessGame(board);
         this.list_round = this.startPageController.getList_round();
+        this.choose_interval.setItems(FXCollections.observableArrayList(
+                "Interval", "0.5s", "1s", "2s", "5s", "10s"
+        ));
+        this.choose_interval.getSelectionModel().selectFirst();
+        this.choose_interval.getSelectionModel().selectedIndexProperty().addListener(new ChangeListener<Number>() {
+            @Override
+            public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
+                switch (newValue.intValue()) {
+                    case 0:
+                        timer_interval = 1000;
+                        break;
+                    case 1:
+                        timer_interval = 500;
+                        break;
+                    case 2:
+                        timer_interval = 1000;
+                        break;
+                    case 3:
+                        timer_interval = 2000;
+                        break;
+                    case 4:
+                        timer_interval = 5000;
+                        break;
+                    case 5:
+                        timer_interval = 10000;
+                        break;
+                    default:
+                        timer_interval = 1000;
+                        break;
+                }
+            }
+        });
+
 
         this.createAnnotationPanel();
         this.setInitialAnnotation();
@@ -236,7 +277,7 @@ public class GamePanelController {
 
                         hasStarted = true;
                     }
-                }, 0, 2000);
+                }, 0, this.timer_interval);
     }
 
     public void highlightAnnotation(Color color, int blockIndex, int moveIndex) {
