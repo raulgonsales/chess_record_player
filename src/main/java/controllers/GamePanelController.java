@@ -424,7 +424,7 @@ public class GamePanelController {
     public void end_game(boolean is_White) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Game end");
-        if (!is_White) {
+        if (is_White) {
             alert.setHeaderText("White win");
         } else {
             alert.setHeaderText("Black win");
@@ -454,7 +454,7 @@ public class GamePanelController {
 
             tmp = (Figure) game.getBoard().getField(move.getFrom_col(), move.getFrom_row()).get();
             if (tmp.getFigureName().equals("P")) {
-                if (move.getStone() != null) {
+                if (move.getStone() == null) {
                     return null;
                 }
             } else {
@@ -472,7 +472,7 @@ public class GamePanelController {
                 }
                 if (tmp.check_move(moveTo) == true) {
                     if (tmp.getFigureName().equals("P")) {
-                        if (move.getStone() != null) {
+                        if (move.getStone() == null) {
                             return null;
                         }
                     } else {
@@ -497,7 +497,7 @@ public class GamePanelController {
                 }
                 if (tmp.check_move(moveTo) == true) {
                     if (tmp.getFigureName().equals("P")) {
-                        if (move.getStone() != null) {
+                        if (move.getStone() == null) {
                             return null;
                         }
                     } else {
@@ -573,10 +573,12 @@ public class GamePanelController {
 
         if (this.currentMoveBlockIndex == -1 && this.currentMoveIndex == -1) {
             this.currentMoveIndex = 0;
-            currentMoveBlockIndex=0;
+            currentMoveBlockIndex = 0;
             list = new ArrayList<>();
             Round round = new Round(move, null);
             list.add(round);
+            this.prev.setVisible(true);
+            this.next.setVisible(false);
             this.setList_round(list);
             this.createAnnotationPanel();
 
@@ -584,27 +586,32 @@ public class GamePanelController {
 
 
             if (currentMoveIndex == 1) {
+                currentMoveBlockIndex++;
                 for (int i = 0; i < currentMoveBlockIndex; i++) {
                     list.add(this.list_round.get(i));
                 }
                 Round round = new Round(move, null);
                 list.add(round);
                 currentMoveIndex = 0;
+
             } else {
 
                 for (int i = 0; i <= currentMoveBlockIndex; i++) {
                     list.add(this.list_round.get(i));
                 }
                 Round round = new Round(this.list_round.get(currentMoveBlockIndex).getWhite(), move);
-                list.remove(list.size()-1);
-                currentMoveBlockIndex++;
+                list.remove(list.size() - 1);
+
                 list.add(round);
                 currentMoveIndex = 1;
 
             }
-
+            this.prev.setVisible(true);
+            this.next.setVisible(false);
             this.setList_round(list);
             this.createAnnotationPanel();
+
+
         }
 
 
