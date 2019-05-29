@@ -254,7 +254,6 @@ public class Figure extends Pane implements main.java.models.interfaces.Figure {
         moveTo.put(this);
         this.cancel_highlighting();
         this.myField.getBoard().getGamePanelController().overwrite_list_round(move);
-        this.myField.getBoard().getGamePanelController().setInitialAnnotation();
 
         if (this.killedKing) {
             this.myField.getBoard().getGamePanelController().end_game(moveTo.get().isWhite());

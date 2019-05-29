@@ -320,6 +320,10 @@ public class GamePanelController {
         }
     }
 
+    public void clearCurrentAnnotations() {
+        this.annotationContainer.getChildren().clear();
+    }
+
     public void reinitBoard() {
         for (int i = 0; i < this.game.getBoard().getBoardSize(); i++) {
             for (int j = 0; j < this.game.getBoard().getBoardSize(); j++) {
@@ -571,20 +575,15 @@ public class GamePanelController {
     public void overwrite_list_round(Move move) {
         ArrayList<Round> list = new ArrayList<>();
 
+
         if (this.currentMoveBlockIndex == -1 && this.currentMoveIndex == -1) {
             this.currentMoveIndex = 0;
             currentMoveBlockIndex = 0;
             list = new ArrayList<>();
             Round round = new Round(move, null);
             list.add(round);
-            this.prev.setVisible(true);
-            this.next.setVisible(false);
-            this.setList_round(list);
-            this.createAnnotationPanel();
-
         } else {
-
-
+            this.highlightAnnotation(Color.BLACK, this.currentMoveBlockIndex, this.currentMoveIndex);
             if (currentMoveIndex == 1) {
                 currentMoveBlockIndex++;
                 for (int i = 0; i < currentMoveBlockIndex; i++) {
@@ -604,17 +603,17 @@ public class GamePanelController {
 
                 list.add(round);
                 currentMoveIndex = 1;
-
             }
-            this.prev.setVisible(true);
-            this.next.setVisible(false);
-            this.setList_round(list);
-            this.createAnnotationPanel();
-
-
         }
 
+        this.prev.setVisible(true);
+        this.next.setVisible(false);
+        this.play.setVisible(false);
 
+        this.setList_round(list);
+        this.clearCurrentAnnotations();
+        this.setInitialAnnotation();
+        this.highlightAnnotation(Color.RED, this.currentMoveBlockIndex, this.currentMoveIndex);
     }
 
 
