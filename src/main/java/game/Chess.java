@@ -3,7 +3,13 @@ package main.java.game;
 import main.java.models.Board;
 import main.java.models.figures.*;
 
-public class Chess implements Game {
+/**
+ * Creates game instance and puts initial figures to board.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
+public class Chess {
     private Board board;
 
     Chess(Board board) {

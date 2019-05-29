@@ -1,5 +1,11 @@
 package main.java.parser;
 
+/**
+ * Round of the movements.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Round {
 
     private Move white;

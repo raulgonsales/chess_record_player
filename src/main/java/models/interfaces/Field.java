@@ -1,5 +1,11 @@
 package main.java.models.interfaces;
 
+/**
+ * Field interface.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public interface Field {
     void positiveHighlightField();
 

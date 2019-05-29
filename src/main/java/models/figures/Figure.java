@@ -1,19 +1,21 @@
 package main.java.models.figures;
 
-import javafx.scene.control.Alert;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.*;
-import main.java.controllers.StartPageController;
 import main.java.models.Board;
 import main.java.models.BoardField;
 import main.java.models.BoardFieldEdge;
 import main.java.models.interfaces.Field;
 import main.java.parser.Move;
 
-import java.io.IOException;
-
+/**
+ * Figures class. Contains methods to handle figures.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Figure extends Pane implements main.java.models.interfaces.Figure {
     protected boolean isWhite;
     protected BoardField myField;

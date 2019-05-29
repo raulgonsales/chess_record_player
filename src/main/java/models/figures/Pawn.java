@@ -2,8 +2,13 @@ package main.java.models.figures;
 
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
-import main.java.parser.Move;
 
+/**
+ * Pawn figure.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Pawn extends Figure {
     public Pawn(boolean isWhite) {
         super(isWhite);
