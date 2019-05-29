@@ -190,7 +190,10 @@ public class Move {
     @Override
     public String toString() {
         String ret = "";
-        if (this.stone != null) ret += this.stone;
+
+        if (this.stone != null) {
+            if (this.stone != "P") ret += this.stone;
+        }
         if (this.from_col != 0) ret += int_to_str(this.from_col);
         if (this.from_row != 0) ret += this.from_row;
         if (this.kill) ret += "x";
