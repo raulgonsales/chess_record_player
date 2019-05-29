@@ -8,6 +8,12 @@ import javafx.scene.paint.Color;
 import main.java.models.interfaces.Field;
 import main.java.models.interfaces.Figure;
 
+/**
+ * Specific field.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class BoardField extends StackPane implements Field{
     private int col;
     private int row;

@@ -1,9 +1,13 @@
 package main.java.models.figures;
 
 import main.java.models.BoardField;
-import main.java.models.interfaces.Field;
-import main.java.parser.Move;
 
+/**
+ * King figure.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class King extends Figure {
     public King(boolean isWhite) {
         super(isWhite);

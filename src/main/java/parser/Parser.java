@@ -11,6 +11,9 @@ import java.util.ArrayList;
  * 1-file not exist on you dont permissions to read file
  * 2-you dont have permission to write file
  * 3-Syntax error of file
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
  */
 public class Parser {
 

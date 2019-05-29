@@ -1,10 +1,13 @@
 package main.java.models.interfaces;
 
-import javafx.scene.input.TransferMode;
 import main.java.models.BoardField;
 
-import java.io.IOException;
-
+/**
+ * Figure interface.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public interface Figure {
     boolean isWhite();
 

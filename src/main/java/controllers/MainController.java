@@ -5,6 +5,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 
+/**
+ * Controller which renders tabs.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class MainController {
     @FXML
     private TabPane tabs;

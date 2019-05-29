@@ -3,6 +3,12 @@ package main.java.models;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextAlignment;
 
+/**
+ * Edges of the board.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class BoardFieldEdge extends BoardField {
     private Text text;
 

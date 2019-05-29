@@ -16,7 +16,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import main.java.game.Chess;
-import main.java.game.Game;
 import main.java.game.GameFactory;
 import main.java.models.Board;
 import main.java.models.BoardField;
@@ -31,7 +30,12 @@ import java.util.ArrayList;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
+/**
+ * Controller which renders game panel, annotation panel, buttons.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class GamePanelController {
     private int currentMoveIndex = -1;
     private int currentMoveBlockIndex = -1;

@@ -1,8 +1,13 @@
 package main.java.models.figures;
 
 import main.java.models.BoardField;
-import main.java.parser.Move;
 
+/**
+ * Knight figure.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Knight extends Figure {
     public Knight(boolean isWhite) {
         super(isWhite);

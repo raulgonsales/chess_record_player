@@ -2,6 +2,12 @@ package main.java.parser;
 
 import java.util.Objects;
 
+/**
+ * Specific movement.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Move {
     private int from_row;
     private int from_col;

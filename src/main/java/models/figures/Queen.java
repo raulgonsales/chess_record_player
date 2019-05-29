@@ -2,10 +2,13 @@ package main.java.models.figures;
 
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
-import main.java.parser.Move;
 
-import java.io.IOException;
-
+/**
+ * Queen figure.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Queen extends Figure {
     public Queen(boolean isWhite) {
         super(isWhite);

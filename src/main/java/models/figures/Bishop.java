@@ -2,8 +2,13 @@ package main.java.models.figures;
 
 import main.java.models.BoardField;
 import main.java.models.interfaces.Field;
-import main.java.parser.Move;
 
+/**
+ * Bishop figure.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Bishop extends Figure {
     public Bishop(boolean isWhite) {
         super(isWhite);

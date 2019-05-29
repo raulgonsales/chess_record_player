@@ -8,6 +8,12 @@ import javafx.scene.text.Text;
 import main.java.controllers.GamePanelController;
 import main.java.models.interfaces.Field;
 
+/**
+ * Handle board.
+ *
+ * @author Bohdan Inhliziian (xinhli00)
+ * @author Konetzný Jakub (xinhli00)
+ */
 public class Board extends StackPane {
     private BoardField[][] fields;
     private int boardSize;
