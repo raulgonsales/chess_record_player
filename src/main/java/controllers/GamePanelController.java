@@ -458,7 +458,7 @@ public class GamePanelController {
 
             tmp = (Figure) game.getBoard().getField(move.getFrom_col(), move.getFrom_row()).get();
             if (tmp.getFigureName().equals("P")) {
-                if (move.getStone() == null) {
+                if (move.getStone() != null) {
                     return null;
                 }
             } else {
@@ -476,7 +476,7 @@ public class GamePanelController {
                 }
                 if (tmp.check_move(moveTo) == true) {
                     if (tmp.getFigureName().equals("P")) {
-                        if (move.getStone() == null) {
+                        if (move.getStone() != null) {
                             return null;
                         }
                     } else {
@@ -501,7 +501,7 @@ public class GamePanelController {
                 }
                 if (tmp.check_move(moveTo) == true) {
                     if (tmp.getFigureName().equals("P")) {
-                        if (move.getStone() == null) {
+                        if (move.getStone() != null) {
                             return null;
                         }
                     } else {
